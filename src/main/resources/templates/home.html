@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<title>Landing Page</title>
+	</head>
+	<body>
+	    <h1>Landing Page</h1>
+	    <p th:text="'Time on the server is: ' + ${theDate}" />
+		<p th:text="'The user is: ' + ${username}" />
+		<p th:text="'The users authorities are: ' + ${authorities}" />
+	</body>
+</html>
