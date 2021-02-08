@@ -10,4 +10,4 @@ Implementation Goals:
 
 Run with Maven on localhost:8080
 
-```clean package spring-boot:run```
+```mvn spring-boot:run```
