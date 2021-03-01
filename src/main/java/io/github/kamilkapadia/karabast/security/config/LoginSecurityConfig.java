@@ -24,11 +24,12 @@ public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-
 		http.authorizeRequests()
 		.antMatchers("/").anonymous()
 		.antMatchers("/").permitAll()
 		.antMatchers("/home/**").hasRole("USER")
+		.antMatchers("/jobs/**").hasRole("USER")
+		.antMatchers("/job-details/**").hasRole("USER")
 		.and()
 		.formLogin()
 			.loginPage("/login")

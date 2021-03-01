@@ -20,7 +20,6 @@ public class KarabastController {
 	
 	@GetMapping("/home")
 	public String home(Model theModel) {
-		
 		theModel.addAttribute("theDate", new Date());
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

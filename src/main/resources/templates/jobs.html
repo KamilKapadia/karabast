@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+<h3>Jobs</h3>
+<hr>
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<th>Name</th>
+			<th>Tier</th>
+			<th>Location</th>
+			<th>Cluster</th>
+			<th>Server</th>
+			<th>Application</th>
+			<th>URL</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tempJob : ${jobs}">
+			<td th:text="${tempJob.name}" />
+			<td th:text="${tempJob.tier}" />
+			<td th:text="${tempJob.location}" />
+			<td th:text="${tempJob.cluster}" />
+			<td th:text="${tempJob.server}" />
+			<td th:text="${tempJob.application}" />
+			<td th:text="${tempJob.targetUrl}" />
+		</tr>
+	</tbody>
+</table>
+</div>
+</body>
+
+</html>

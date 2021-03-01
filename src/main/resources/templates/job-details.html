@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+<h3>Rules</h3>
+<hr>
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<th>Name</th>
+			<th>Path</th>
+			<th>Expected Value</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tempRule : ${rules}">
+			<td th:text="${tempRule.name}" />
+			<td th:text="${tempRule.valuePath}" />
+			<td th:text="${tempRule.expectedValue}" />
+		</tr>
+	</tbody>
+</table>
+
+<h3>Historical Names</h3>
+<hr>
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<th>Name</th>
+			<th>Path</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="historicalName : ${historical}">
+			<td th:text="${historicalName.name}" />
+			<td th:text="${historicalName.valuePath}" />
+		</tr>
+	</tbody>
+</table>
+
+<h3>Content Paths</h3>
+<hr>
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<th>Name Path</th>
+			<th>Mime Type Path</th>
+			<th>Content Path</th>
+			<th>Disk Directory</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tempContents : ${content}">
+			<td th:text="${tempContents.namePath}" />
+			<td th:text="${tempContents.mimeTypePath}" />
+			<td th:text="${tempContents.contentPath}" />
+			<td th:text="${tempContents.diskDir}" />
+		</tr>
+	</tbody>
+</table>
+
+<h3>Actions</h3>
+<hr>
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<th>Type Mask</th>
+			<th>Action Mask</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tempAction : ${actions}">
+			<td th:text="${tempAction.typeMask}" />
+			<td th:text="${tempAction.actionMask}" />
+		</tr>
+	</tbody>
+</table>
+
+</div>
+</body>
+
+</html>

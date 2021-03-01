@@ -30,7 +30,7 @@ public class ContentRepository implements ContentDAO {
 	public Content findById(long theId) {
 		return entityManager.find(Content.class, theId);
 	}
-
+	
 	@Override
 	public void save(Content theContent) {
 		Content dbContent = entityManager.merge(theContent);
