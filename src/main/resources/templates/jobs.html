@@ -13,24 +13,26 @@
 <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
 		<tr>
-			<th>Name</th>
+		    <th>Name</th>
 			<th>Tier</th>
 			<th>Location</th>
 			<th>Cluster</th>
 			<th>Server</th>
 			<th>Application</th>
 			<th>URL</th>
+			<th>Details</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr th:each="tempJob : ${jobs}">
-			<td th:text="${tempJob.name}" />
+		    <td th:text="${tempJob.name}" />
 			<td th:text="${tempJob.tier}" />
 			<td th:text="${tempJob.location}" />
 			<td th:text="${tempJob.cluster}" />
 			<td th:text="${tempJob.server}" />
 			<td th:text="${tempJob.application}" />
 			<td th:text="${tempJob.targetUrl}" />
+			<td><a th:href="@{/job-details(jobId=${tempJob.id})}">View Details</a></td>
 		</tr>
 	</tbody>
 </table>
