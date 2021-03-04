@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActionDTO {
+	private long id;
 	private List<String> statuses = new ArrayList<String>();
 	private List<String> actions = new ArrayList<String>();
 	private boolean active;
 	
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
 	public List<String> getStatuses() {
 		return statuses;
 	}

@@ -10,6 +10,10 @@
 <h3>Jobs</h3>
 <hr>
 
+<a th:href="@{/jobs/showFormForAdd}" class="btn btn-primary btn-sm mb-3">
+	Add Job
+</a>
+
 <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
 		<tr>
@@ -20,7 +24,7 @@
 			<th>Server</th>
 			<th>Application</th>
 			<th>URL</th>
-			<th>Details</th>
+			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -32,7 +36,20 @@
 			<td th:text="${tempJob.server}" />
 			<td th:text="${tempJob.application}" />
 			<td th:text="${tempJob.targetUrl}" />
-			<td><a th:href="@{/job-details(jobId=${tempJob.id})}">View Details</a></td>
+			<td>
+			   <a th:href="@{/job-details(jobId=${tempJob.id})}" class="btn btn-info btn-sm">
+			      View
+			   </a>
+			
+			   <a th:href="@{/jobs/showFormForUpdate(jobId=${tempJob.id})}" class="btn btn-success btn-sm">
+			      Update
+			   </a>
+			
+			   <a th:href="@{/jobs/delete(jobId=${tempJob.id})}" class="btn btn-danger btn-sm" 
+			   		onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+			      Delete
+			   </a>
+			</td>
 		</tr>
 	</tbody>
 </table>
