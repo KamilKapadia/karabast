@@ -1,5 +1,6 @@
 package io.github.kamilkapadia.karabast.controller;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import io.github.kamilkapadia.karabast.dto.ActionDTO;
@@ -56,6 +59,54 @@ public class JobsController {
 		
 		return "jobs";
 	}
+	
+	@GetMapping("/jobs/showJobFormForUpdate")
+	public String showFormForUpdate(@RequestParam("jobId") int theId, Model theModel) {
+		
+		// get the job from the service
+		Job theJob = jobService.findById(theId);
+		
+		// set job as a model attribute to pre-populate the form
+		theModel.addAttribute("job", theJob);
+		
+		// send over to our form
+		return "/update-job";
+	}
+	
+	@GetMapping("/jobs/showJobFormForAdd")
+	public String showFormForAdd(Model theModel) {
+		
+		// create the model attribute to bind form data
+		Job theJob = new Job();
+		theJob.setCreationTime(new Timestamp(System.currentTimeMillis()));
+		theJob.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
+				
+		theModel.addAttribute("job", theJob);
+				
+		return "/update-job";
+	}
+	
+	@PostMapping("/jobs/save")
+	public String saveJob(@ModelAttribute("job") Job theJob) {
+		
+		// save the job
+		jobService.save(theJob);
+		
+		// use a redirect to prevent duplicate submissions
+		return "redirect:/jobs";
+	}
+	
+	@GetMapping("/jobs/delete")
+	public String deleteJob(@RequestParam("jobId") int theId) {
+		
+		jobService.deleteById(theId);
+
+		// send over to our form
+		return "redirect:/jobs";
+	}
+	
+	
+	
 	
 	@GetMapping("/job-details")
 	public String jobDetails(@RequestParam("jobId") int theId, Model theModel) {

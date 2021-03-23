@@ -1,5 +1,6 @@
 package io.github.kamilkapadia.karabast.repository.setup;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -42,6 +43,8 @@ public class JobRepository implements JobDAO {
 	
 	@Override
 	public void save(Job theJob) {
+		theJob.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
+		
 		Job dbJob = entityManager.merge(theJob);
 		theJob.setId(dbJob.getId());
 	}

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Save Job</title>
+</head>
+
+<body>
+
+	<div class="container">
+	
+		<h3>Job</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Save Job</p>
+	
+		<form action="#" th:action="@{/jobs/save}"
+						 th:object="${job}" method="POST">
+		
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{creationTime}" />
+			
+			<input type="text" th:field="*{name}"
+					class="form-control mb-4 col-4" placeholder="Name">
+
+			<input type="text" th:field="*{tier}"
+					class="form-control mb-4 col-4" placeholder="Tier">
+
+			<input type="text" th:field="*{location}"
+					class="form-control mb-4 col-4" placeholder="Location">
+					
+			<input type="text" th:field="*{cluster}"
+					class="form-control mb-4 col-4" placeholder="Cluster">
+
+			<input type="text" th:field="*{server}"
+					class="form-control mb-4 col-4" placeholder="Server">
+
+			<input type="text" th:field="*{application}"
+					class="form-control mb-4 col-4" placeholder="Application">
+					
+			<input type="text" th:field="*{targetUrl}"
+					class="form-control mb-4 col-4" placeholder="Target URL">		
+				
+			<button type="submit" class="btn btn-info col-2">Save</button>
+						
+		</form>
+	
+		<hr>
+		<a th:href="@{/jobs}">Back to Jobs</a>
+		
+	</div>
+</body>
+
+</html>
