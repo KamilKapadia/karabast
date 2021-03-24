@@ -10,10 +10,13 @@
 
 <h1>Job</h1>
 <hr>
+<a th:href="@{/jobs}">Back to Jobs</a>
+<hr>
 
 <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
 		<tr>
+		    <th>Active</th>
 			<th>Name</th>
 			<th>Tier</th>
 			<th>Location</th>
@@ -21,10 +24,13 @@
 			<th>Server</th>
 			<th>Application</th>
 			<th>URL</th>
+			<th>Creation Time</th>
+			<th>Update Time</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr th:each="tempJob : ${jobs}">
+		    <td th:text="${tempJob.active}" />
 			<td th:text="${tempJob.name}" />
 			<td th:text="${tempJob.tier}" />
 			<td th:text="${tempJob.location}" />
@@ -32,39 +38,41 @@
 			<td th:text="${tempJob.server}" />
 			<td th:text="${tempJob.application}" />
 			<td th:text="${tempJob.targetUrl}" />
+			<td th:text="${tempJob.creationTime}" />
+			<td th:text="${tempJob.lastUpdateTime}" />
 		</tr>
 	</tbody>
 </table>
 
 <h2>Rules</h2>
 <hr>
-
-<a th:href="@{/rules/showFormForAdd}" class="btn btn-primary btn-sm mb-3">
+<a th:href="@{/rules/showFormForAdd(jobId=${jobs.id})}" class="btn btn-primary btn-sm mb-3">
 	Add Rule
 </a>
 
 <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
 		<tr>
+			<th>Active</th>
 			<th>Name</th>
 			<th>Type</th>
 			<th>Path</th>
 			<th>Rule</th>
 			<th>Expected Value</th>
 			<th>Status Type</th>
-			<th>Active</th>
 			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr th:each="tempRule : ${rules}">
+			<td th:text="${tempRule.active}" />
 			<td th:text="${tempRule.name}" />
 			<td th:text="${tempRule.typeCode.name}" />
 			<td th:text="${tempRule.valuePath}" />
 			<td th:text="${tempRule.ruleCode.name}" />
 			<td th:text="${tempRule.expectedValue}" />
 			<td th:text="${tempRule.statusCode.name}" />
-			<td th:text="${tempRule.active}" />
+			
 			<td>
 			   <a th:href="@{/rules/showFormForUpdate(ruleId=${tempRule.id})}" class="btn btn-success btn-sm">
 			      Update
@@ -89,19 +97,20 @@
 <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
 		<tr>
+			<th>Active</th>
 			<th>Name</th>
 			<th>Path</th>
 			<th>Type</th>
-			<th>Active</th>
 			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr th:each="historicalName : ${historical}">
+			<td th:text="${historicalName.active}" />
 			<td th:text="${historicalName.name}" />
 			<td th:text="${historicalName.valuePath}" />
 			<td th:text="${historicalName.typeCode.name}" />
-			<td th:text="${historicalName.active}" />
+			
 			<td>
 			   <a th:href="@{/historic-names/showFormForUpdate(historicNameId=${historicalName.id})}" class="btn btn-success btn-sm">
 			      Update
@@ -126,21 +135,22 @@
 <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
 		<tr>
+			<th>Active</th>
 			<th>Name Path</th>
 			<th>Content Path</th>
 			<th>Mime Type Path</th>
 			<th>Disk Directory</th>
-			<th>Active</th>
 			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr th:each="tempContents : ${content}">
+			<td th:text="${tempContents.active}" />
 			<td th:text="${tempContents.namePath}" />
 			<td th:text="${tempContents.contentPath}" />
 			<td th:text="${tempContents.mimeTypePath}" />
 			<td th:text="${tempContents.diskDir}" />
-			<td th:text="${tempContents.active}" />
+			
 			<td>
 			   <a th:href="@{/content-paths/showFormForUpdate(contentPathId=${tempContents.id})}" class="btn btn-success btn-sm">
 			      Update
@@ -166,17 +176,18 @@
 <table class="table table-bordered table-striped">
 	<thead class="thead-dark">
 		<tr>
+			<th>Active</th>
 			<th>Statuses</th>
 			<th>Actions</th>
-			<th>Active</th>
 			<th>Action</th>
 		</tr>
 	</thead>
 	<tbody>
 		<tr th:each="tempAction : ${actions}">
+			<td th:text="${tempAction.active}" />
 			<td th:text="${tempAction.statuses}" />
 			<td th:text="${tempAction.actions}" />
-			<td th:text="${tempAction.active}" />
+			
 			<td>
 			   <a th:href="@{/actions/showFormForUpdate(actionId=${tempAction.id})}" class="btn btn-success btn-sm">
 			      Update

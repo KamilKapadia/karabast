@@ -95,7 +95,11 @@ CREATE TABLE historical_name (
 	type_code_id INT NOT NULL,
 	active BOOL DEFAULT true,
     creation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    last_update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    last_update_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_hn_job_id    
+    FOREIGN KEY (JOB_ID) 
+    REFERENCES JOB (ID) 
+    ON DELETE CASCADE
 );
 
 CREATE TABLE content_path (
@@ -168,7 +172,12 @@ CREATE TABLE last_run (
 	SLOWER LONG, 
 	WARNING LONG, 
 	STALLED LONG, 
-	DOWN long);
+	DOWN long,
+	 CONSTRAINT fk_lr_job_id
+     FOREIGN KEY (job_id)
+     REFERENCES job (id)
+     ON DELETE CASCADE
+	);
 
 CREATE TABLE historical_data (
 	id LONG PRIMARY KEY auto_increment NOT NULL,
@@ -177,7 +186,11 @@ CREATE TABLE historical_data (
 	long_value LONG,
 	double_value DOUBLE,
 	string_value VARCHAR(256),
-	boolean_value BOOL
+	boolean_value BOOL,
+	 CONSTRAINT fk_hd_result_id
+     FOREIGN KEY (result_id) 
+     REFERENCES RESULT (ID)
+     ON DELETE CASCADE
 );
 
 CREATE TABLE rule_result (
@@ -190,9 +203,10 @@ CREATE TABLE rule_result (
 	
 -- Foreign Key Constraints
 
-ALTER TABLE historical_name
-    ADD FOREIGN KEY (JOB_ID) 
-    REFERENCES JOB (ID) ON DELETE CASCADE;	
+--ALTER TABLE historical_name
+--    ADD CONSTRAINT fk_hn_job_id    
+--    FOREIGN KEY (JOB_ID) 
+--    REFERENCES JOB (ID) ON DELETE CASCADE;	
 
 ALTER TABLE historical_name
     ADD FOREIGN KEY (TYPE_CODE_ID) 
@@ -239,9 +253,9 @@ ALTER TABLE content_result
 	ADD FOREIGN KEY (CONTENT_ID)
 	REFERENCES CONTENT (ID) ON DELETE CASCADE;
 
-ALTER TABLE last_run
-    ADD FOREIGN KEY (JOB_ID) 
-    REFERENCES JOB (ID) ON DELETE CASCADE;     	
+--ALTER TABLE last_run
+--    ADD FOREIGN KEY (JOB_ID) 
+--    REFERENCES JOB (ID) ON DELETE CASCADE;     	
 
 ALTER TABLE last_run
     ADD FOREIGN KEY (unknown) 
@@ -274,14 +288,17 @@ ALTER TABLE rule_result
 ALTER TABLE rule_result
     ADD FOREIGN KEY (rule_id) 
     REFERENCES RULE (ID);  
+
+--ALTER TABLE historical_data
+--    ADD CONSTRAINT fk_hd_result_id
+--    FOREIGN KEY (result_id) 
+--    REFERENCES RESULT (ID);  
     
-ALTER TABLE historical_data
-    ADD FOREIGN KEY (result_id) 
-    REFERENCES RESULT (ID);  
-    
-ALTER TABLE historical_data
-    ADD FOREIGN KEY (historical_name_id) 
-    REFERENCES HISTORICAL_NAME (ID);  
+--ALTER TABLE historical_data
+--    ADD CONSTRAINT fk_hd_hn_id    
+--    FOREIGN KEY (historical_name_id) 
+--    REFERENCES HISTORICAL_NAME (ID) 
+--    ON DELETE CASCADE;  
     
 -- Insert some test data 
     

@@ -28,27 +28,30 @@
 			<input type="hidden" th:field="*{id}" />
 			<input type="hidden" th:field="*{creationTime}" />
 			
-			<input type="text" th:field="*{name}"
-					class="form-control mb-4 col-4" placeholder="Name">
+			<label for="active">Active:</label>
+			<input type="checkbox" id="active" th:field="*{active}" class="form-check">
+			
+			<label for="name">Name:</label>
+			<input type="text" id="name" th:field="*{name}" class="form-control mb-4 col-4" placeholder="Name">
 
-			<input type="text" th:field="*{tier}"
-					class="form-control mb-4 col-4" placeholder="Tier">
+            <label for="tier">Tier:</label>
+			<input type="text" id="tier" th:field="*{tier}" class="form-control mb-4 col-4" placeholder="Tier">
 
-			<input type="text" th:field="*{location}"
-					class="form-control mb-4 col-4" placeholder="Location">
+            <label for="location">Location:</label>
+			<input type="text" id="location" th:field="*{location}" class="form-control mb-4 col-4" placeholder="Location">
 					
-			<input type="text" th:field="*{cluster}"
-					class="form-control mb-4 col-4" placeholder="Cluster">
+			<label for="cluster">Cluster:</label>
+			<input type="text" id="cluster" th:field="*{cluster}" class="form-control mb-4 col-4" placeholder="Cluster">
 
-			<input type="text" th:field="*{server}"
-					class="form-control mb-4 col-4" placeholder="Server">
+            <label for="server">Server:</label>
+			<input type="text" id="server" th:field="*{server}" class="form-control mb-4 col-4" placeholder="Server">
 
-			<input type="text" th:field="*{application}"
-					class="form-control mb-4 col-4" placeholder="Application">
+            <label for="application">Application:</label>
+			<input type="text" id="application" th:field="*{application}" class="form-control mb-4 col-4" placeholder="Application">
 					
-			<input type="text" th:field="*{targetUrl}"
-					class="form-control mb-4 col-4" placeholder="Target URL">		
-				
+			<label for="targetURL">Target URL:</label>
+			<input type="text" id="targetURL" th:field="*{targetUrl}" class="form-control mb-4 col-4" placeholder="Target URL">		
+								
 			<button type="submit" class="btn btn-info col-2">Save</button>
 						
 		</form>

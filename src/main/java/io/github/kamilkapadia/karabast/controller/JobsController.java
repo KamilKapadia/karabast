@@ -60,7 +60,7 @@ public class JobsController {
 		return "jobs";
 	}
 	
-	@GetMapping("/jobs/showJobFormForUpdate")
+	@GetMapping("/jobs/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("jobId") int theId, Model theModel) {
 		
 		// get the job from the service
@@ -73,13 +73,14 @@ public class JobsController {
 		return "/update-job";
 	}
 	
-	@GetMapping("/jobs/showJobFormForAdd")
+	@GetMapping("/jobs/showFormForAdd")
 	public String showFormForAdd(Model theModel) {
 		
 		// create the model attribute to bind form data
 		Job theJob = new Job();
 		theJob.setCreationTime(new Timestamp(System.currentTimeMillis()));
 		theJob.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
+		theJob.setActive(true);
 				
 		theModel.addAttribute("job", theJob);
 				
