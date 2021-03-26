@@ -1,5 +1,6 @@
 package io.github.kamilkapadia.karabast.repository.setup;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -43,6 +44,8 @@ public class ActionRepository implements ActionDAO {
 
 	@Override
 	public void save(Action theAction) {
+		theAction.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
+		
 		Action dbAction = entityManager.merge(theAction);
 		theAction.setId(dbAction.getId());
 	}

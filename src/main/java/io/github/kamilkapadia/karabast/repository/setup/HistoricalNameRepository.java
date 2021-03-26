@@ -1,5 +1,6 @@
 package io.github.kamilkapadia.karabast.repository.setup;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -43,6 +44,8 @@ public class HistoricalNameRepository implements HistoricalNameDAO {
 
 	@Override
 	public void save(HistoricalName historicalName) {
+		historicalName.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
+		
 		HistoricalName dbHistoricalName = entityManager.merge(historicalName);
 		historicalName.setId(dbHistoricalName.getId());
 		

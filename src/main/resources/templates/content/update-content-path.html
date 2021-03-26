@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Save Rule</title>
+</head>
+
+<body>
+
+	<div class="container">
+	
+		<h3>Rule</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Save Rule</p>
+	
+		<form action="#" th:action="@{/content/save}"
+						 th:object="${content}" method="POST">
+		
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{creationTime}" />
+			<input type="hidden" th:field="*{job.id}" />
+						
+			
+			<label for="active">Active:</label>
+			<input type="checkbox" id="active" th:field="*{active}" class="form-check">
+			
+			<label for="namePath">Name Path:</label>
+			<input type="text" id="namePath" th:field="*{namePath}" class="form-control mb-4 col-4" placeholder="Name Path">
+			
+			<label for="contentPath">Content Path:</label>
+			<input type="text" id="contentPath" th:field="*{contentPath}" class="form-control mb-4 col-4" placeholder="Content Path">
+			
+			<label for="mimeTypePath">MIME Type Path:</label>
+			<input type="text" id="mimeTypePath" th:field="*{mimeTypePath}" class="form-control mb-4 col-4" placeholder="MIME Type Path">
+			
+			<label for="diskDirectory">Disk Directory:</label>
+			<input type="text" id="diskDirectory" th:field="*{diskDir}" class="form-control mb-4 col-4" placeholder="Disk Directory">
+			
+			<button type="submit" class="btn btn-info col-2">Save</button>
+						
+		</form>
+	
+		<hr>
+		<a th:href="@{/content}">Back to Jobs</a>
+		
+	</div>
+</body>
+
+</html>

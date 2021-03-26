@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import io.github.kamilkapadia.karabast.dto.ActionDTO;
+
 @Entity
 @Table(name = "action")
 public class Action {
@@ -21,7 +23,7 @@ public class Action {
 	@Column(name = "id")
 	private long id;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name="job_id")
 	private Job job;
 	
@@ -40,10 +42,14 @@ public class Action {
 	@Column(name = "last_update_time")
 	private Timestamp lastUpdateTime;
 
+//	private ActionDTO actionDTO;
+	
 	public Action() {
 		
 	}
 
+	
+	
 	public Action(int typeMask, int actionMask, boolean active) {
 		super();
 		this.typeMask = typeMask;
@@ -111,10 +117,29 @@ public class Action {
 		this.lastUpdateTime = lastUpdateTime;
 	}
 
-	@Override
-	public String toString() {
-		return "Action [id=" + id + ", job_id=" + job.getId() + ", typeMask=" + typeMask + ", actionMask=" + actionMask
-				+ ", active=" + active + ", creationTime=" + creationTime + ", lastUpdateTime=" + lastUpdateTime + "]";
-	}
+	
+	
+//	public ActionDTO getActionDTO() {
+//		return actionDTO;
+//	}
+//
+//
+//
+//	public void setActionDTO(ActionDTO actionDTO) {
+//		this.actionDTO = actionDTO;
+//	}
+
+
+
+//	@Override
+//	public String toString() {
+//		return "Action [id=" + id + ", job=" + job + ", typeMask=" + typeMask + ", actionMask=" + actionMask
+//				+ ", active=" + active + ", creationTime=" + creationTime + ", lastUpdateTime=" + lastUpdateTime
+//				+ ", actionDTO=" + actionDTO + "]";
+//	}
+
+
+
+	
 }
 

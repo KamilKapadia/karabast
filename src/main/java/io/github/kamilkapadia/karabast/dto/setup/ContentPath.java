@@ -21,7 +21,7 @@ public class ContentPath {
 	@Column(name = "id")
 	private long id;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name="job_id")
 	private Job job;
 	

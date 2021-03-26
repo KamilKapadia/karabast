@@ -1,5 +1,6 @@
 package io.github.kamilkapadia.karabast.repository.setup;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -43,6 +44,8 @@ public class ContentPathRepository implements ContentPathDAO {
 
 	@Override
 	public void save(ContentPath contentPath) {
+		contentPath.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
+		
 		ContentPath dbContentPath = entityManager.merge(contentPath);
 		contentPath.setId(dbContentPath.getId());
 	}

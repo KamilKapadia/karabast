@@ -39,7 +39,7 @@ public class HistoricalName {
 	@Column(name = "last_update_time")
 	private Timestamp lastUpdateTime;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name="job_id")
 	private Job job;
 	
