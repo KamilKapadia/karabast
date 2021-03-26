@@ -70,7 +70,7 @@ public class JobsController {
 		theModel.addAttribute("job", theJob);
 		
 		// send over to our form
-		return "/update-job";
+		return "/jobs/update-job";
 	}
 	
 	@GetMapping("/jobs/showFormForAdd")
@@ -84,7 +84,7 @@ public class JobsController {
 				
 		theModel.addAttribute("job", theJob);
 				
-		return "/update-job";
+		return "/jobs/update-job";
 	}
 	
 	@PostMapping("/jobs/save")
@@ -109,7 +109,7 @@ public class JobsController {
 	
 	
 	
-	@GetMapping("/job-details")
+	@GetMapping("/jobs/job-details")
 	public String jobDetails(@RequestParam("jobId") int theId, Model theModel) {
 		theModel.addAttribute("jobs", jobService.findById(theId));
 		theModel.addAttribute("rules", ruleService.findByJobId(theId));
@@ -165,6 +165,6 @@ public class JobsController {
 		
 		
 		
-		return "job-details";
+		return "jobs/job-details";
 	}
 }

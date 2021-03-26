@@ -44,30 +44,21 @@ public class Rule {
 	@Column(name = "last_update_time")
 	private Timestamp lastUpdateTime;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name="job_id")
 	private Job job; 
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name="status_type_code")
 	private StatusCode statusCode; 
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.REFRESH})
 	@JoinColumn(name = "type_code_id")
 	private TypeCode typeCode; 
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.REFRESH})
 	@JoinColumn(name = "rule_code")
 	private RuleCode ruleCode;
-
-//	@Column(name = "status_type_code")
-//	private int statusCode;
-//	
-//	@Column(name = "type_code_id")
-//	private int typeCode;
-//	
-//	@Column(name = "rule_code")
-//	private int ruleCode;
 	
 	public Rule() {
 		

@@ -51,7 +51,7 @@ public class RulesController {
 		theModel.addAttribute("statusCodes", statusCodeService.findAll());
 		
 		// send over to our form
-		return "/update-rule";
+		return "rules//update-rule";
 	}
 	
 	@GetMapping("/rules/showFormForAdd")
@@ -72,7 +72,7 @@ public class RulesController {
 		theModel.addAttribute("ruleCodes", ruleCodeService.findAll());
 		theModel.addAttribute("statusCodes", statusCodeService.findAll());
 		
-		return "/update-rule";
+		return "/rules/update-rule";
 	}
 	
 	@PostMapping("/rules/save")
@@ -82,16 +82,16 @@ public class RulesController {
 		ruleService.save(theRule);
 		
 		// use a redirect to prevent duplicate submissions
-		return "redirect:/job-details?jobId=" + theRule.getJob().getId();
+		return "redirect:/jobs/job-details?jobId=" + theRule.getJob().getId();
 	}
 	
 	@GetMapping("/rules/delete")
 	public String delete(@RequestParam("ruleId") int theId) {
 		
+		Rule theRule = ruleService.findById(theId);
 		ruleService.deleteById(theId);
 
 		// send over to our form
-		return "redirect:/jobs-details";
+		return "redirect:/jobs/job-details?jobId=" + theRule.getJob().getId();
 	}
-
 }

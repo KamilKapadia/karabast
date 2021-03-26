@@ -60,6 +60,8 @@
 			<th>Rule</th>
 			<th>Expected Value</th>
 			<th>Status Type</th>
+			<th>Creation Time</th>
+			<th>Update Time</th>
 			<th>Action</th>
 		</tr>
 	</thead>
@@ -72,6 +74,8 @@
 			<td th:text="${tempRule.ruleCode.name}" />
 			<td th:text="${tempRule.expectedValue}" />
 			<td th:text="${tempRule.statusCode.name}" />
+			<td th:text="${tempRule.creationTime}" />
+			<td th:text="${tempRule.lastUpdateTime}" />
 			
 			<td>
 			   <a th:href="@{/rules/showFormForUpdate(ruleId=${tempRule.id})}" class="btn btn-success btn-sm">

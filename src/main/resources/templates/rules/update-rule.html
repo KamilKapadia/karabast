@@ -27,12 +27,8 @@
 			<!-- Add hidden form field to handle update -->
 			<input type="hidden" th:field="*{id}" />
 			<input type="hidden" th:field="*{creationTime}" />
-			<input type="hidden" th:field="*{lastUpdateTime}" />
 			<input type="hidden" th:field="*{job.id}" />
-			
-			<input type="hidden" th:field="*{job.name}" />
-			<input type="hidden" th:field="*{job.creationTime}" />
-			<input type="hidden" th:field="*{job.lastUpdateTime}" />
+						
 			
 			<label for="active">Active:</label>
 			<input type="checkbox" id="active" th:field="*{active}" class="form-check">

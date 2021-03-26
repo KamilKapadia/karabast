@@ -1,5 +1,6 @@
 package io.github.kamilkapadia.karabast.repository.setup;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -43,6 +44,8 @@ public class RuleRepository implements RuleDAO {
 
 	@Override
 	public void save(Rule theRule) {
+		theRule.setLastUpdateTime(new Timestamp(System.currentTimeMillis()));
+		
 		Rule dbJob = entityManager.merge(theRule);
 		theRule.setId(dbJob.getId());
 		
