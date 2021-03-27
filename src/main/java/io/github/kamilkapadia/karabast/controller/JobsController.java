@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import io.github.kamilkapadia.karabast.dto.ActionDTO;
+//import io.github.kamilkapadia.karabast.dto.ActionDTO;
 import io.github.kamilkapadia.karabast.dto.lookup.ActionCode;
 import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;
 import io.github.kamilkapadia.karabast.dto.setup.Action;
@@ -132,36 +132,40 @@ public class JobsController {
 		
 		
 		
-		List<ActionDTO> actionDTOs = new ArrayList<ActionDTO>();
+		//List<ActionDTO> actionDTOs = new ArrayList<ActionDTO>();
 		
 		List<Action> actions = actionService.findByJobId(theId);
 		
 		for (Action action : actions) {
-			ActionDTO actionDTO = new ActionDTO();
+			//ActionDTO actionDTO = new ActionDTO();
 			
-			actionDTO.setActive(action.isActive());
+			//actionDTO.setActive(action.isActive());
 			
 			int statusMask = action.getTypeMask();
 			
 			for (StatusCode statusCode : statusCodes) {
 				if ( (statusMask & statusCode.getId()) > 0) {
-					actionDTO.getStatuses().add(statusCodeMap.get(statusCode.getId()));
+					action.getStatuses().add(statusCodeMap.get(statusCode.getId()));
 				}
 			}
 			
 			int actionMask = action.getActionMask();
 			
+//			actionDTO.setCreationTime(action.getCreationTime());
+//			actionDTO.setLastUpdateTime(action.getLastUpdateTime());
+//			actionDTO.setId(action.getId());
+			
 			for (ActionCode actionCode : actionCodes) {
 				if ( (actionMask & actionCode.getId()) > 0) {
-					actionDTO.getActions().add(actionCodeMap.get(actionCode.getId()));
+					action.getActions().add(actionCodeMap.get(actionCode.getId()));
 				}
 			}
 			
 			
-			actionDTOs.add(actionDTO);
+			//actionDTOs.add(actionDTO);
 		}
 		
-		theModel.addAttribute("actions", actionDTOs);
+		theModel.addAttribute("actions", actions);
 		
 		
 		

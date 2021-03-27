@@ -1,6 +1,8 @@
 package io.github.kamilkapadia.karabast.dto.setup;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import io.github.kamilkapadia.karabast.dto.ActionDTO;
 
@@ -42,7 +45,11 @@ public class Action {
 	@Column(name = "last_update_time")
 	private Timestamp lastUpdateTime;
 
-//	private ActionDTO actionDTO;
+	@Transient
+	private List<String> statuses = new ArrayList<String>();
+	
+	@Transient
+	private List<String> actions = new ArrayList<String>();
 	
 	public Action() {
 		
@@ -117,6 +124,32 @@ public class Action {
 		this.lastUpdateTime = lastUpdateTime;
 	}
 
+
+
+	public List<String> getStatuses() {
+		return statuses;
+	}
+
+
+
+	public void setStatuses(List<String> statuses) {
+		this.statuses = statuses;
+	}
+
+
+
+	public List<String> getActions() {
+		return actions;
+	}
+
+
+
+	public void setActions(List<String> actions) {
+		this.actions = actions;
+	}
+
+	
+	
 	
 	
 //	public ActionDTO getActionDTO() {

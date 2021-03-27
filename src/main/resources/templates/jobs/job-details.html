@@ -201,6 +201,8 @@
 			<td th:text="${tempAction.active}" />
 			<td th:text="${tempAction.statuses}" />
 			<td th:text="${tempAction.actions}" />
+			<td th:text="${tempAction.creationTime}" />
+			<td th:text="${tempAction.lastUpdateTime}" />
 			
 			<td>
 			   <a th:href="@{/actions/showFormForUpdate(actionId=${tempAction.id})}" class="btn btn-success btn-sm">

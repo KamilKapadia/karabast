@@ -33,6 +33,12 @@
 			<label for="active">Active:</label>
 			<input type="checkbox" id="active" th:field="*{active}" class="form-check">
 			
+			<label for="types">Types:</label>
+			<input type="text" id="types" th:field="*{typeMask}" class="form-control mb-4 col-4" placeholder="Types">
+			
+			<label for="actions">Actions:</label>
+			<input type="text" id="actions" th:field="*{actionMask}" class="form-control mb-4 col-4" placeholder="Actions">
+			
 			
 			
 			<button type="submit" class="btn btn-info col-2">Save</button>
