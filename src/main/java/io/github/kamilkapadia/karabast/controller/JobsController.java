@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -116,14 +116,14 @@ public class JobsController {
 		theModel.addAttribute("historical", historicalNameService.findByJobId(theId));
 		theModel.addAttribute("content", contentPathService.findByJobId(theId));
 		
-		Map<Integer, String> statusCodeMap = new HashMap<Integer, String>();
+		Map<Integer, String> statusCodeMap = new TreeMap<Integer, String>();
 		List<StatusCode> statusCodes = statusCodeService.findAll();
 		
 		for (StatusCode statusCode : statusCodes) {
 			statusCodeMap.put(statusCode.getId(), statusCode.getName());
 		}
 		
-		Map<Integer, String> actionCodeMap = new HashMap<Integer, String>();
+		Map<Integer, String> actionCodeMap = new TreeMap<Integer, String>();
 		List<ActionCode> actionCodes = actionCodeService.findAll();
 		
 		for (ActionCode actionCode : actionCodes) {
@@ -145,9 +145,14 @@ public class JobsController {
 			
 			for (StatusCode statusCode : statusCodes) {
 				if ( (statusMask & statusCode.getId()) > 0) {
-					action.getStatuses().add(statusCodeMap.get(statusCode.getId()));
+					action.getStatuses().add(statusCode);
 				}
 			}
+			
+			// TODO
+			action.setStatuses(action.getStatuses());
+			
+			//action.setStatusString(statusCodes);
 			
 			int actionMask = action.getActionMask();
 			
@@ -157,10 +162,12 @@ public class JobsController {
 			
 			for (ActionCode actionCode : actionCodes) {
 				if ( (actionMask & actionCode.getId()) > 0) {
-					action.getActions().add(actionCodeMap.get(actionCode.getId()));
+					action.getActions().add(actionCode);
 				}
 			}
 			
+			// TODO
+			action.setActions(action.getActions());
 			
 			//actionDTOs.add(actionDTO);
 		}

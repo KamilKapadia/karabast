@@ -16,6 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import io.github.kamilkapadia.karabast.dto.ActionDTO;
+import io.github.kamilkapadia.karabast.dto.lookup.ActionCode;
+import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;
 
 @Entity
 @Table(name = "action")
@@ -46,10 +48,17 @@ public class Action {
 	private Timestamp lastUpdateTime;
 
 	@Transient
-	private List<String> statuses = new ArrayList<String>();
+	private List<StatusCode> statuses = new ArrayList<StatusCode>();
 	
 	@Transient
-	private List<String> actions = new ArrayList<String>();
+	private List<ActionCode> actions = new ArrayList<ActionCode>();
+	
+//	@Transient
+//	private String statusString;
+//	
+//	@Transient
+//	private String actionString;
+	
 	
 	public Action() {
 		
@@ -126,27 +135,68 @@ public class Action {
 
 
 
-	public List<String> getStatuses() {
+	public List<StatusCode> getStatuses() {
 		return statuses;
 	}
 
 
 
-	public void setStatuses(List<String> statuses) {
+	public void setStatuses(List<StatusCode> statuses) {
 		this.statuses = statuses;
+		
+		int mask = 0;
+		
+		for (StatusCode statusCode : this.statuses) {
+			mask = mask | statusCode.getId();
+		}
+		
+		setTypeMask(mask);
 	}
 
 
 
-	public List<String> getActions() {
+	public List<ActionCode> getActions() {
 		return actions;
 	}
 
 
 
-	public void setActions(List<String> actions) {
+	public void setActions(List<ActionCode> actions) {
 		this.actions = actions;
+		
+		int mask = 0;
+		
+		for (ActionCode actionCode : this.actions) {
+			mask = mask | actionCode.getId();
+		}
+		
+		setActionMask(mask);
 	}
+
+//	public void setStatusString(List<StatusCode> statuses) {
+//		StringBuilder builder = new StringBuilder();
+//		
+//		for (StatusCode statusCode : statuses) {
+//			builder.append(statusCode.getName());
+//			builder.append(",");
+//		}
+//		
+//		this.statusString = builder.substring(builder.length());
+//		
+//		
+//	}
+//
+//	public String getStatusString() {
+//		return statusString;
+//	}
+//
+//	public String getActionString() {
+//		return actionString;
+//	}
+//
+//	public void setActionString(String actionString) {
+//		this.actionString = actionString;
+//	}
 
 	
 	
