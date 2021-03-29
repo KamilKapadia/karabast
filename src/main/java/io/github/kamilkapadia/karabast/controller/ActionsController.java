@@ -1,6 +1,7 @@
 package io.github.kamilkapadia.karabast.controller;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import io.github.kamilkapadia.karabast.dto.lookup.ActionCode;
+import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;
 import io.github.kamilkapadia.karabast.dto.setup.Action;
 import io.github.kamilkapadia.karabast.dto.setup.Job;
 import io.github.kamilkapadia.karabast.dto.setup.Rule;
+import io.github.kamilkapadia.karabast.service.lookup.ActionCodeService;
 import io.github.kamilkapadia.karabast.service.lookup.RuleCodeService;
 import io.github.kamilkapadia.karabast.service.lookup.StatusCodeService;
 import io.github.kamilkapadia.karabast.service.lookup.TypeCodeService;
@@ -29,19 +33,49 @@ public class ActionsController {
 	@Autowired
 	private JobService jobService;
 	
+	@Autowired
+	private ActionCodeService actionCodeService;
+	
+	@Autowired
+	private StatusCodeService statusCodeService;
+	
 	
 	
 	@GetMapping("/actions/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("actionId") int theId, Model theModel) {
 		
-		// get the job from the service
 		Action theAction = actionService.findById(theId);
+		List<StatusCode> allStatusCodes = statusCodeService.findAll();
+		List<ActionCode> allActionCodes = actionCodeService.findAll();
 		
-		// set job as a model attribute to pre-populate the form
+		int statusMask = theAction.getTypeMask();
+			
+		for (StatusCode statusCode : allStatusCodes) {
+			if ( (statusMask & statusCode.getId()) > 0) {
+				theAction.getStatuses().add(statusCode);
+			}
+		}
+			
+		// TODO
+		theAction.setStatuses(theAction.getStatuses());
+				
+		int actionMask = theAction.getActionMask();
+		
+		for (ActionCode actionCode : allActionCodes) {
+			if ( (actionMask & actionCode.getId()) > 0) {
+				theAction.getActions().add(actionCode);
+			}
+		}
+			
+		// TODO
+		theAction.setActions(theAction.getActions());
+		
 		theModel.addAttribute("action", theAction);
-		//theModel.addAttribute("typeCodes", typeCodeService.findAll());
-		//theModel.addAttribute("ruleCodes", ruleCodeService.findAll());
-		//theModel.addAttribute("statusCodes", statusCodeService.findAll());
+		theModel.addAttribute("selectedStatuses", theAction.getStatuses());
+		theModel.addAttribute("allStatuses", allStatusCodes);
+		theModel.addAttribute("selectedActions", theAction.getActions());
+		theModel.addAttribute("allActions", allActionCodes);
+		
 		
 		// send over to our form
 		return "actions/update-action";
@@ -61,15 +95,18 @@ public class ActionsController {
 		theAction.setJob(job);
 				
 		theModel.addAttribute("action", theAction);
-//		theModel.addAttribute("typeCodes", typeCodeService.findAll());
-//		theModel.addAttribute("ruleCodes", ruleCodeService.findAll());
-//		theModel.addAttribute("statusCodes", statusCodeService.findAll());
+		theModel.addAttribute("selectedStatuses", theAction.getStatuses());
+		theModel.addAttribute("allStatuses", statusCodeService.findAll());
+		theModel.addAttribute("selectedActions", theAction.getActions());
+		theModel.addAttribute("allActions", actionCodeService.findAll());
 		
 		return "/actions/update-action";
 	}
 	
 	@PostMapping("/actions/save")
 	public String save(@ModelAttribute("action") Action theAction) {
+		
+		List<ActionCode> actionList = theAction.getActions();
 		
 		// save the job
 		actionService.save(theAction);

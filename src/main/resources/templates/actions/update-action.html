@@ -28,18 +28,28 @@
 			<input type="hidden" th:field="*{id}" />
 			<input type="hidden" th:field="*{creationTime}" />
 			<input type="hidden" th:field="*{job.id}" />
-						
 			
 			<label for="active">Active:</label>
 			<input type="checkbox" id="active" th:field="*{active}" class="form-check">
 			
-			<label for="types">Types:</label>
-			<input type="text" id="types" th:field="*{typeMask}" class="form-control mb-4 col-4" placeholder="Types">
-			
+			<label for="statuses">Statuses:</label>
+			<select multiple="multiple" size="6" id="statuses">
+				<option th:each="statusCode : ${allStatuses}"
+				th:selected="${selectedStatuses.contains(statusCode)}" 
+				th:value="${statusCode.id}" 
+				th:text=${statusCode.name}></option>
+			</select>
+			<input type="hidden" id="typeMask" th:field="*{typeMask}" class="form-control mb-4 col-4" placeholder="Statuses">
+
 			<label for="actions">Actions:</label>
-			<input type="text" id="actions" th:field="*{actionMask}" class="form-control mb-4 col-4" placeholder="Actions">
-			
-			
+			<select multiple="multiple" size="6" id="actions">
+				<option th:each="actionCode : ${allActions}"
+				th:selected="${selectedActions.contains(actionCode)}" 
+				th:value="${actionCode.id}" 
+				th:text=${actionCode.name}></option>
+			</select>
+			<input type="hidden" id="actionMask" th:field="*{actionMask}" class="form-control mb-4 col-4" placeholder="Actions">
+
 			
 			<button type="submit" class="btn btn-info col-2">Save</button>
 						
@@ -49,6 +59,40 @@
 		<a th:href="@{/actions}">Back to Jobs</a>
 		
 	</div>
+	<script>
+	   const typeMaskArray = document.getElementById('statuses');
+	   typeMaskArray.addEventListener('change', (e) => {
+          const options = e.target.options;
+       
+          var x = document.getElementById("typeMask").value;
+          x = 0;
+  
+          for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+              x = x | options[i].value;
+            }
+          }
+
+          document.getElementById("typeMask").value= new Number(x);
+       });
+	   
+	   const actionMaskArray = document.getElementById('actions');
+	   actionMaskArray.addEventListener('change', (e) => {
+          const amOptions = e.target.options;
+       
+          var y = document.getElementById("actionMask").value;
+          y = 0;
+  
+          for (let j = 0; j < amOptions.length; j++) {
+            if (amOptions[j].selected) {
+              y = y | amOptions[j].value;
+            }
+          }
+
+          document.getElementById("actionMask").value= new Number(y);
+       });
+   </script>
+	
 </body>
 
 </html>

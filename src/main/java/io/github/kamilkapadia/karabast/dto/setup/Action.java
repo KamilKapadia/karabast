@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import io.github.kamilkapadia.karabast.dto.ActionDTO;
 import io.github.kamilkapadia.karabast.dto.lookup.ActionCode;
 import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;
 
@@ -52,13 +51,6 @@ public class Action {
 	
 	@Transient
 	private List<ActionCode> actions = new ArrayList<ActionCode>();
-	
-//	@Transient
-//	private String statusString;
-//	
-//	@Transient
-//	private String actionString;
-	
 	
 	public Action() {
 		
@@ -153,6 +145,15 @@ public class Action {
 		setTypeMask(mask);
 	}
 
+	public void setStatuses(int[] statusCodes) {
+		int mask = 0;
+		
+		for (int statusCode : statusCodes) {
+			mask = mask | statusCode;
+		}
+		
+		setTypeMask(mask);
+	}
 
 
 	public List<ActionCode> getActions() {
@@ -173,56 +174,12 @@ public class Action {
 		setActionMask(mask);
 	}
 
-//	public void setStatusString(List<StatusCode> statuses) {
-//		StringBuilder builder = new StringBuilder();
-//		
-//		for (StatusCode statusCode : statuses) {
-//			builder.append(statusCode.getName());
-//			builder.append(",");
-//		}
-//		
-//		this.statusString = builder.substring(builder.length());
-//		
-//		
-//	}
-//
-//	public String getStatusString() {
-//		return statusString;
-//	}
-//
-//	public String getActionString() {
-//		return actionString;
-//	}
-//
-//	public void setActionString(String actionString) {
-//		this.actionString = actionString;
-//	}
-
-	
-	
-	
-	
-//	public ActionDTO getActionDTO() {
-//		return actionDTO;
-//	}
-//
-//
-//
-//	public void setActionDTO(ActionDTO actionDTO) {
-//		this.actionDTO = actionDTO;
-//	}
 
 
-
-//	@Override
-//	public String toString() {
-//		return "Action [id=" + id + ", job=" + job + ", typeMask=" + typeMask + ", actionMask=" + actionMask
-//				+ ", active=" + active + ", creationTime=" + creationTime + ", lastUpdateTime=" + lastUpdateTime
-//				+ ", actionDTO=" + actionDTO + "]";
-//	}
-
-
-
-	
+	@Override
+	public String toString() {
+		return "Action [id=" + id + ", job=" + job + ", typeMask=" + typeMask + ", actionMask=" + actionMask
+				+ ", active=" + active + ", creationTime=" + creationTime + ", lastUpdateTime=" + lastUpdateTime
+				+ ", statuses=" + statuses + ", actions=" + actions + "]";
+	}
 }
-

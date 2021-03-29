@@ -134,6 +134,7 @@ public class JobsController {
 		
 		//List<ActionDTO> actionDTOs = new ArrayList<ActionDTO>();
 		
+		// TODO - move to common place...
 		List<Action> actions = actionService.findByJobId(theId);
 		
 		for (Action action : actions) {
