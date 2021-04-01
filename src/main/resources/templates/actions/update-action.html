@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Save Action</title>
+</head>
+
+<body>
+
+	<div class="container">
+	
+		<h3>Action</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Save Action</p>
+	
+		<form action="#" th:action="@{/actions/save}"
+						 th:object="${action}" method="POST">
+		
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{creationTime}" />
+			<input type="hidden" th:field="*{job.id}" />
+			
+			<label for="active">Active:</label>
+			<input type="checkbox" id="active" th:field="*{active}" class="form-check">
+			
+			<label for="statuses">Statuses:</label>
+			<select multiple="multiple" size="6" id="statuses">
+				<option th:each="statusCode : ${allStatuses}"
+				th:selected="${selectedStatuses.contains(statusCode)}" 
+				th:value="${statusCode.id}" 
+				th:text=${statusCode.name}></option>
+			</select>
+			<input type="hidden" id="typeMask" th:field="*{typeMask}" class="form-control mb-4 col-4" placeholder="Statuses">
+
+			<label for="actions">Actions:</label>
+			<select multiple="multiple" size="6" id="actions">
+				<option th:each="actionCode : ${allActions}"
+				th:selected="${selectedActions.contains(actionCode)}" 
+				th:value="${actionCode.id}" 
+				th:text=${actionCode.name}></option>
+			</select>
+			<input type="hidden" id="actionMask" th:field="*{actionMask}" class="form-control mb-4 col-4" placeholder="Actions">
+
+			
+			<button type="submit" class="btn btn-info col-2">Save</button>
+						
+		</form>
+	
+		<hr>
+		<a th:href="@{/actions}">Back to Jobs</a>
+		
+	</div>
+	<script>
+	   const typeMaskArray = document.getElementById('statuses');
+	   typeMaskArray.addEventListener('change', (e) => {
+          const options = e.target.options;
+       
+          var x = document.getElementById("typeMask").value;
+          x = 0;
+  
+          for (let i = 0; i < options.length; i++) {
+            if (options[i].selected) {
+              x = x | options[i].value;
+            }
+          }
+
+          document.getElementById("typeMask").value= new Number(x);
+       });
+	   
+	   const actionMaskArray = document.getElementById('actions');
+	   actionMaskArray.addEventListener('change', (e) => {
+          const amOptions = e.target.options;
+       
+          var y = document.getElementById("actionMask").value;
+          y = 0;
+  
+          for (let j = 0; j < amOptions.length; j++) {
+            if (amOptions[j].selected) {
+              y = y | amOptions[j].value;
+            }
+          }
+
+          document.getElementById("actionMask").value= new Number(y);
+       });
+   </script>
+	
+</body>
+
+</html>

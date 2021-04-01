@@ -1,0 +1,228 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container">
+
+<h1>Job</h1>
+<hr>
+<a th:href="@{/jobs}">Back to Jobs</a>
+<hr>
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+		    <th>Active</th>
+			<th>Name</th>
+			<th>Tier</th>
+			<th>Location</th>
+			<th>Cluster</th>
+			<th>Server</th>
+			<th>Application</th>
+			<th>URL</th>
+			<th>Creation Time</th>
+			<th>Update Time</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tempJob : ${jobs}">
+		    <td th:text="${tempJob.active}" />
+			<td th:text="${tempJob.name}" />
+			<td th:text="${tempJob.tier}" />
+			<td th:text="${tempJob.location}" />
+			<td th:text="${tempJob.cluster}" />
+			<td th:text="${tempJob.server}" />
+			<td th:text="${tempJob.application}" />
+			<td th:text="${tempJob.targetUrl}" />
+			<td th:text="${tempJob.creationTime}" />
+			<td th:text="${tempJob.lastUpdateTime}" />
+		</tr>
+	</tbody>
+</table>
+
+<h2>Rules</h2>
+<hr>
+<a th:href="@{/rules/showFormForAdd(jobId=${jobs.id})}" class="btn btn-primary btn-sm mb-3">
+	Add Rule
+</a>
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<th>Active</th>
+			<th>Name</th>
+			<th>Type</th>
+			<th>Path</th>
+			<th>Rule</th>
+			<th>Expected Value</th>
+			<th>Status Type</th>
+			<th>Creation Time</th>
+			<th>Update Time</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tempRule : ${rules}">
+			<td th:text="${tempRule.active}" />
+			<td th:text="${tempRule.name}" />
+			<td th:text="${tempRule.typeCode.name}" />
+			<td th:text="${tempRule.valuePath}" />
+			<td th:text="${tempRule.ruleCode.name}" />
+			<td th:text="${tempRule.expectedValue}" />
+			<td th:text="${tempRule.statusCode.name}" />
+			<td th:text="${tempRule.creationTime}" />
+			<td th:text="${tempRule.lastUpdateTime}" />
+			
+			<td>
+			   <a th:href="@{/rules/showFormForUpdate(ruleId=${tempRule.id})}" class="btn btn-success btn-sm">
+			      Update
+			   </a>
+			
+			   <a th:href="@{/rules/delete(ruleId=${tempRule.id})}" class="btn btn-danger btn-sm" 
+			   		onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+			      Delete
+			   </a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Historical Names</h2>
+<hr>
+
+<a th:href="@{/historical/showFormForAdd(jobId=${jobs.id})}" class="btn btn-primary btn-sm mb-3">
+	Add Historical Name
+</a>
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<th>Active</th>
+			<th>Name</th>
+			<th>Path</th>
+			<th>Type</th>
+			<th>Creation Time</th>
+			<th>Update Time</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="historicalName : ${historical}">
+			<td th:text="${historicalName.active}" />
+			<td th:text="${historicalName.name}" />
+			<td th:text="${historicalName.valuePath}" />
+			<td th:text="${historicalName.typeCode.name}" />
+			<td th:text="${historicalName.creationTime}" />
+			<td th:text="${historicalName.lastUpdateTime}" />
+			
+			<td>
+			   <a th:href="@{/historical/showFormForUpdate(historicalNameId=${historicalName.id})}" class="btn btn-success btn-sm">
+			      Update
+			   </a>
+			
+			   <a th:href="@{/historical/delete(historicalNameId=${historicalName.id})}" class="btn btn-danger btn-sm" 
+			   		onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+			      Delete
+			   </a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Content Paths</h2>
+<hr>
+
+<a th:href="@{/content/showFormForAdd(jobId=${jobs.id})}" class="btn btn-primary btn-sm mb-3">
+	Add Content Path
+</a>
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<th>Active</th>
+			<th>Name Path</th>
+			<th>Content Path</th>
+			<th>Mime Type Path</th>
+			<th>Disk Directory</th>
+			<th>Creation Time</th>
+			<th>Update Time</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tempContents : ${content}">
+			<td th:text="${tempContents.active}" />
+			<td th:text="${tempContents.namePath}" />
+			<td th:text="${tempContents.contentPath}" />
+			<td th:text="${tempContents.mimeTypePath}" />
+			<td th:text="${tempContents.diskDir}" />
+			<td th:text="${tempContents.creationTime}" />
+			<td th:text="${tempContents.lastUpdateTime}" />
+			
+			<td>
+			   <a th:href="@{/content/showFormForUpdate(contentPathId=${tempContents.id})}" class="btn btn-success btn-sm">
+			      Update
+			   </a>
+			
+			   <a th:href="@{/content/delete(contentPathId=${tempContents.id})}" class="btn btn-danger btn-sm" 
+			   		onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+			      Delete
+			   </a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<h2>Actions</h2>
+<hr>
+
+<a th:href="@{/actions/showFormForAdd(jobId=${jobs.id})}" class="btn btn-primary btn-sm mb-3">
+	Add Actions
+</a>
+
+
+<table class="table table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+			<th>Active</th>
+			<th>Statuses</th>
+			<th>Actions</th>
+			<th>Creation Time</th>
+			<th>Update Time</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tempAction : ${actions}">
+			<td th:text="${tempAction.active}" />
+			<td>
+			   <p th:each="statusCode : ${tempAction.statuses}" th:text="${statusCode.name}"></p>
+			</td>
+			<td> 
+			   <p th:each="actionCode : ${tempAction.actions}" th:text="${actionCode.name}"></p>
+			</td>
+			<td th:text="${tempAction.creationTime}" />
+			<td th:text="${tempAction.lastUpdateTime}" />
+			
+			<td>
+			   <a th:href="@{/actions/showFormForUpdate(actionId=${tempAction.id})}" class="btn btn-success btn-sm">
+			      Update
+			   </a>
+			
+			   <a th:href="@{/actions/delete(actionId=${tempAction.id})}" class="btn btn-danger btn-sm" 
+			   		onclick="if (!(confirm('Are you sure you want to delete this employee?'))) return false">
+			      Delete
+			   </a>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+</div>
+</body>
+
+</html>

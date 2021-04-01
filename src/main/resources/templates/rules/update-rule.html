@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+	<title>Save Rule</title>
+</head>
+
+<body>
+
+	<div class="container">
+	
+		<h3>Rule</h3>
+		<hr>
+		
+		<p class="h4 mb-4">Save Rule</p>
+	
+		<form action="#" th:action="@{/rules/save}"
+						 th:object="${rule}" method="POST">
+		
+			<!-- Add hidden form field to handle update -->
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{creationTime}" />
+			<input type="hidden" th:field="*{job.id}" />
+						
+			
+			<label for="active">Active:</label>
+			<input type="checkbox" id="active" th:field="*{active}" class="form-check">
+			
+			<label for="name">Name:</label>
+			<input type="text" id="name" th:field="*{name}" class="form-control mb-4 col-4" placeholder="Name">
+			
+			<!-- Dropdown -->
+			<label for="typeCode">Type:</label>
+			<select th:field="*{typeCode.id}">
+				<option th:each="typeCode : ${typeCodes}" th:value="${typeCode.id}" th:text="${typeCode.name}"></option>
+			</select>
+			
+			<label for="path">Path:</label>
+			<input type="text" id="path" th:field="*{valuePath}" class="form-control mb-4 col-4" placeholder="Path">
+
+            <!-- Dropdown -->
+			<label for="rule">Rule:</label>
+			<select th:field="*{ruleCode.id}">
+				<option th:each="ruleCode : ${ruleCodes}" th:value="${ruleCode.id}" th:text="${ruleCode.name}"></option>
+			</select>
+						
+			<label for="expectedValue">Expected Value:</label>
+			<input type="text" id="expectedValue" th:field="*{expectedValue}" class="form-control mb-4 col-4" placeholder="Expected Value">
+			
+			<!-- Dropdown -->
+			<label for="statusType">Status Type:</label>
+			<select th:field="*{statusCode.id}">
+				<option th:each="statusCode : ${statusCodes}" th:value="${statusCode.id}" th:text="${statusCode.name}"></option>
+			</select>
+			
+			<button type="submit" class="btn btn-info col-2">Save</button>
+						
+		</form>
+	
+		<hr>
+		<a th:href="@{/rules}">Back to Jobs</a>
+		
+	</div>
+</body>
+
+</html>

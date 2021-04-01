@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<style>
+.table-nonfluid {
+   width: auto !important;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h3>Jobs</h3>
+<hr>
+
+<a th:href="@{/jobs/showFormForAdd}" class="btn btn-primary btn-sm mb-3">
+	Add Job
+</a>
+
+<div class="table-responsive">
+<table class="table table-nonfluid table-bordered table-striped">
+	<thead class="thead-dark">
+		<tr>
+		    <th>Active</th>
+		    <th>Name</th>
+			<th>Tier</th>
+			<th>Location</th>
+			<th>Cluster</th>
+			<th>Server</th>
+			<th>Application</th>
+			<th>URL</th>
+			<th>Creation Time</th>
+			<th>Update Time</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr th:each="tempJob : ${jobs}">
+		    <td th:text="${tempJob.active}" />
+		    <td th:text="${tempJob.name}" />
+			<td th:text="${tempJob.tier}" />
+			<td th:text="${tempJob.location}" />
+			<td th:text="${tempJob.cluster}" />
+			<td th:text="${tempJob.server}" />
+			<td th:text="${tempJob.application}" />
+			<td th:text="${tempJob.targetUrl}" />
+			<td th:text="${tempJob.creationTime}" />
+			<td th:text="${tempJob.lastUpdateTime}" />
+			<td>
+			   <a th:href="@{/jobs/job-details(jobId=${tempJob.id})}" class="btn btn-info btn-sm">
+			      View
+			   </a>
+			   <a th:href="@{/jobs/showFormForUpdate(jobId=${tempJob.id})}" class="btn btn-success btn-sm">
+			      Update
+			   </a>
+			   <a th:href="@{/jobs/delete(jobId=${tempJob.id})}" class="btn btn-danger btn-sm" 
+			   		onclick="if (!(confirm('Are you sure you want to delete this job?'))) return false">
+			      Delete
+			   </a>
+			   
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+</body>
+
+</html>
