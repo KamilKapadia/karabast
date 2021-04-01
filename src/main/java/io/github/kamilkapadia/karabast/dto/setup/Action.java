@@ -53,7 +53,9 @@ public class Action {
 	private List<ActionCode> actions = new ArrayList<ActionCode>();
 	
 	public Action() {
-		
+		this.active = true;
+		this.creationTime = new Timestamp(System.currentTimeMillis());
+		this.lastUpdateTime = new Timestamp(System.currentTimeMillis());
 	}
 
 	
@@ -110,28 +112,24 @@ public class Action {
 	}
 
 	public Timestamp getCreationTime() {
-		return creationTime;
+		return (Timestamp)creationTime.clone();
 	}
 
 	public void setCreationTime(Timestamp creationTime) {
-		this.creationTime = creationTime;
+		this.creationTime = (Timestamp)creationTime.clone();
 	}
 
 	public Timestamp getLastUpdateTime() {
-		return lastUpdateTime;
+		return (Timestamp)lastUpdateTime.clone();
 	}
 
 	public void setLastUpdateTime(Timestamp lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
+		this.lastUpdateTime = (Timestamp)lastUpdateTime.clone();
 	}
-
-
 
 	public List<StatusCode> getStatuses() {
 		return statuses;
 	}
-
-
 
 	public void setStatuses(List<StatusCode> statuses) {
 		this.statuses = statuses;

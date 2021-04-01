@@ -118,19 +118,19 @@ public class ContentPath {
 	}
 
 	public Timestamp getCreationTime() {
-		return creationTime;
+		return (Timestamp)creationTime.clone();
 	}
 
 	public void setCreationTime(Timestamp creationTime) {
-		this.creationTime = creationTime;
+		this.creationTime = (Timestamp)creationTime.clone();
 	}
 
 	public Timestamp getLastUpdateTime() {
-		return lastUpdateTime;
+		return (Timestamp)lastUpdateTime.clone();
 	}
 
 	public void setLastUpdateTime(Timestamp lastUpdateTime) {
-		this.lastUpdateTime = lastUpdateTime;
+		this.lastUpdateTime = (Timestamp)lastUpdateTime.clone();
 	}
 
 	@Override

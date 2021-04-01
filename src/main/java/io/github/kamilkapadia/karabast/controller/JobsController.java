@@ -2,10 +2,7 @@ package io.github.kamilkapadia.karabast.controller;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,15 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//import io.github.kamilkapadia.karabast.dto.ActionDTO;
 import io.github.kamilkapadia.karabast.dto.lookup.ActionCode;
 import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;
 import io.github.kamilkapadia.karabast.dto.setup.Action;
 import io.github.kamilkapadia.karabast.dto.setup.Job;
-import io.github.kamilkapadia.karabast.service.setup.ContentPathService;
 import io.github.kamilkapadia.karabast.service.lookup.ActionCodeService;
 import io.github.kamilkapadia.karabast.service.lookup.StatusCodeService;
 import io.github.kamilkapadia.karabast.service.setup.ActionService;
+import io.github.kamilkapadia.karabast.service.setup.ContentPathService;
 import io.github.kamilkapadia.karabast.service.setup.HistoricalNameService;
 import io.github.kamilkapadia.karabast.service.setup.JobService;
 import io.github.kamilkapadia.karabast.service.setup.RuleService;
@@ -116,66 +112,37 @@ public class JobsController {
 		theModel.addAttribute("historical", historicalNameService.findByJobId(theId));
 		theModel.addAttribute("content", contentPathService.findByJobId(theId));
 		
-		Map<Integer, String> statusCodeMap = new TreeMap<Integer, String>();
 		List<StatusCode> statusCodes = statusCodeService.findAll();
-		
-		for (StatusCode statusCode : statusCodes) {
-			statusCodeMap.put(statusCode.getId(), statusCode.getName());
-		}
-		
-		Map<Integer, String> actionCodeMap = new TreeMap<Integer, String>();
 		List<ActionCode> actionCodes = actionCodeService.findAll();
-		
-		for (ActionCode actionCode : actionCodes) {
-			actionCodeMap.put(actionCode.getId(), actionCode.getName());
-		}
-		
-		
-		
-		//List<ActionDTO> actionDTOs = new ArrayList<ActionDTO>();
-		
-		// TODO - move to common place...
 		List<Action> actions = actionService.findByJobId(theId);
 		
 		for (Action action : actions) {
-			//ActionDTO actionDTO = new ActionDTO();
-			
-			//actionDTO.setActive(action.isActive());
+			List<StatusCode> theStatusCodes = new ArrayList<StatusCode>();
 			
 			int statusMask = action.getTypeMask();
 			
 			for (StatusCode statusCode : statusCodes) {
 				if ( (statusMask & statusCode.getId()) > 0) {
-					action.getStatuses().add(statusCode);
+					theStatusCodes.add(statusCode);
 				}
 			}
 			
-			// TODO
-			action.setStatuses(action.getStatuses());
+			action.setStatuses(theStatusCodes);
 			
-			//action.setStatusString(statusCodes);
+			List<ActionCode> theActionCodes = new ArrayList<ActionCode>();
 			
 			int actionMask = action.getActionMask();
 			
-//			actionDTO.setCreationTime(action.getCreationTime());
-//			actionDTO.setLastUpdateTime(action.getLastUpdateTime());
-//			actionDTO.setId(action.getId());
-			
 			for (ActionCode actionCode : actionCodes) {
 				if ( (actionMask & actionCode.getId()) > 0) {
-					action.getActions().add(actionCode);
+					theActionCodes.add(actionCode);
 				}
 			}
 			
-			// TODO
-			action.setActions(action.getActions());
-			
-			//actionDTOs.add(actionDTO);
+			action.setActions(theActionCodes);
 		}
 		
 		theModel.addAttribute("actions", actions);
-		
-		
 		
 		return "jobs/job-details";
 	}

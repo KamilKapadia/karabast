@@ -32,7 +32,7 @@ public class LastRun {
 	@Column(name = "id")
 	private long id;
 	
-	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@OneToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name="job_id")
 	private Job job;
 	

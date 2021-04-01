@@ -35,7 +35,7 @@ public class Result {
 	@Column(name = "id")
 	private long id;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.REFRESH})
     @JoinColumn(name="job_id")
 	private Job job; 
 	
@@ -62,7 +62,7 @@ public class Result {
 		this.run = run;
 		this.statusCode = statusCode;
 		this.execTime = execTime;
-		this.time = time;
+		this.time = (Timestamp)time.clone();
 	}
 
 	public long getId() {
@@ -106,11 +106,11 @@ public class Result {
 	}
 
 	public Timestamp getTime() {
-		return time;
+		return (Timestamp)time.clone();
 	}
 
 	public void setTime(Timestamp time) {
-		this.time = time;
+		this.time = (Timestamp)time.clone();
 	}
 		
 	@Override

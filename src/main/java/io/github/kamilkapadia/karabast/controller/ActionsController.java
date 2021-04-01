@@ -1,6 +1,7 @@
 package io.github.kamilkapadia.karabast.controller;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,10 @@ import io.github.kamilkapadia.karabast.dto.lookup.ActionCode;
 import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;
 import io.github.kamilkapadia.karabast.dto.setup.Action;
 import io.github.kamilkapadia.karabast.dto.setup.Job;
-import io.github.kamilkapadia.karabast.dto.setup.Rule;
 import io.github.kamilkapadia.karabast.service.lookup.ActionCodeService;
-import io.github.kamilkapadia.karabast.service.lookup.RuleCodeService;
 import io.github.kamilkapadia.karabast.service.lookup.StatusCodeService;
-import io.github.kamilkapadia.karabast.service.lookup.TypeCodeService;
 import io.github.kamilkapadia.karabast.service.setup.ActionService;
 import io.github.kamilkapadia.karabast.service.setup.JobService;
-import io.github.kamilkapadia.karabast.service.setup.RuleService;
 
 @Controller
 public class ActionsController {
@@ -49,26 +46,30 @@ public class ActionsController {
 		List<ActionCode> allActionCodes = actionCodeService.findAll();
 		
 		int statusMask = theAction.getTypeMask();
-			
+		
+		List<StatusCode> statusCodes = new ArrayList<StatusCode>();
+		
 		for (StatusCode statusCode : allStatusCodes) {
 			if ( (statusMask & statusCode.getId()) > 0) {
-				theAction.getStatuses().add(statusCode);
+				//theAction.getStatuses().add(statusCode);
+				statusCodes.add(statusCode);
 			}
 		}
 			
-		// TODO
-		theAction.setStatuses(theAction.getStatuses());
+		theAction.setStatuses(statusCodes);
 				
 		int actionMask = theAction.getActionMask();
 		
+		List<ActionCode> actionCodes = new ArrayList<ActionCode>();
+		
 		for (ActionCode actionCode : allActionCodes) {
 			if ( (actionMask & actionCode.getId()) > 0) {
-				theAction.getActions().add(actionCode);
+				//theAction.getActions().add(actionCode);
+				actionCodes.add(actionCode);
 			}
 		}
 			
-		// TODO
-		theAction.setActions(theAction.getActions());
+		theAction.setActions(actionCodes);
 		
 		theModel.addAttribute("action", theAction);
 		theModel.addAttribute("selectedStatuses", theAction.getStatuses());
@@ -105,8 +106,6 @@ public class ActionsController {
 	
 	@PostMapping("/actions/save")
 	public String save(@ModelAttribute("action") Action theAction) {
-		
-		List<ActionCode> actionList = theAction.getActions();
 		
 		// save the job
 		actionService.save(theAction);
