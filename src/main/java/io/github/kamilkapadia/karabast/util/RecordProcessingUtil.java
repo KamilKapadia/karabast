@@ -3,28 +3,11 @@ package io.github.kamilkapadia.karabast.util;
 import java.sql.Timestamp;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.jayway.jsonpath.Configuration;
-import com.jayway.jsonpath.JsonPath;
-
 import io.github.kamilkapadia.karabast.dto.data.Result;
 import io.github.kamilkapadia.karabast.dto.data.RuleResult;
-import io.github.kamilkapadia.karabast.dto.lookup.RuleCode;
 import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;
-import io.github.kamilkapadia.karabast.dto.lookup.TypeCode;
-import io.github.kamilkapadia.karabast.dto.setup.HistoricalName;
 import io.github.kamilkapadia.karabast.dto.setup.Job;
-import io.github.kamilkapadia.karabast.dto.setup.Rule;
+import io.github.kamilkapadia.karabast.service.data.HistoricalDataService;
 import io.github.kamilkapadia.karabast.service.data.ResultService;
 import io.github.kamilkapadia.karabast.service.data.RuleResultService;
 import io.github.kamilkapadia.karabast.service.lookup.StatusCodeService;
@@ -38,12 +21,13 @@ public class RecordProcessingUtil {
 	private static final String EXECUTION_TIME = "$.data.results.executionTime";
 	
 	public static void processRecord(String rawJson, JobService jobService, ResultService resultService, RuleService ruleService, 
-			RuleResultService ruleResultService, StatusCodeService statusCodeService, HistoricalNameService historicalNameService) {
+			RuleResultService ruleResultService, StatusCodeService statusCodeService, 
+			HistoricalNameService historicalNameService, HistoricalDataService historicalDataService) {
 		
-		Object document = Configuration.defaultConfiguration().jsonProvider().parse(rawJson);
+		Object document = JSONPathUtil.getJSONObject(rawJson); //Configuration.defaultConfiguration().jsonProvider().parse(rawJson);
 		
 		Job job = JobProcessingUtil.getJob(jobService, document, rawJson);
-		Object executionTime = JsonPath.read(document, EXECUTION_TIME);
+		double executionTime = JSONPathUtil.getDouble(document, EXECUTION_TIME);
 		
 		if (job != null ) {
 			List<RuleResult> ruleResults = RulesProcessingUtil.validate(ruleService, document, job);
@@ -51,7 +35,7 @@ public class RecordProcessingUtil {
 			
 			Result result = new Result();
 			
-			result.setExecTime(Double.parseDouble(executionTime.toString()));
+			result.setExecTime(executionTime);
 			result.setJob(job);
 			result.setStatusCode(statusCode);
 			result.setTime(new Timestamp(System.currentTimeMillis()));
@@ -67,10 +51,13 @@ public class RecordProcessingUtil {
 			// 1. result
 			resultService.save(result);
 			
+			// TODO - needs work - rule validation
 			// 2. rules result
 			RulesProcessingUtil.persist(ruleResultService, result, ruleResults);
 			
+			// TODO - get real values using JSON Path
 			// 3. historical data
+			HistorcialDataProcessingUtil.persist(document, job, result, historicalNameService, historicalDataService);
 			
 			// 4/5. content (and content_result)
 			

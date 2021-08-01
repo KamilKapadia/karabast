@@ -3,10 +3,6 @@ package io.github.kamilkapadia.karabast.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.jayway.jsonpath.JsonPath;
-
 import io.github.kamilkapadia.karabast.dto.data.Result;
 import io.github.kamilkapadia.karabast.dto.data.RuleResult;
 import io.github.kamilkapadia.karabast.dto.lookup.RuleCode;
@@ -36,7 +32,7 @@ public class RulesProcessingUtil {
 				String expectedValueString = rule.getExpectedValue();
 				StatusCode statusCode = rule.getStatusCode();
 				
-				Object value = JsonPath.read(document, valuePath);
+				String ruleString = JSONPathUtil.getString(document, valuePath);
 				
 				// NAME: response = 200 OK (TypeCode [id=4, name=STRING] 
 				//       RuleCode [id=1, name=EQUALS] StatusCode [id=2, name=RUNNING CORRECTLY] 200 OK true

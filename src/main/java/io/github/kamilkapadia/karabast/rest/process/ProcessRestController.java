@@ -10,6 +10,7 @@ import io.github.kamilkapadia.karabast.service.data.ResultService;
 import io.github.kamilkapadia.karabast.service.data.RuleResultService;
 import io.github.kamilkapadia.karabast.service.lookup.StatusCodeService;
 import io.github.kamilkapadia.karabast.service.setup.HistoricalNameService;
+import io.github.kamilkapadia.karabast.service.data.HistoricalDataService;
 import io.github.kamilkapadia.karabast.service.setup.JobService;
 import io.github.kamilkapadia.karabast.service.setup.RuleService;
 import io.github.kamilkapadia.karabast.util.RecordProcessingUtil;
@@ -37,10 +38,13 @@ public class ProcessRestController {
 	@Autowired
 	private HistoricalNameService historicalNameService;
 	
+	@Autowired
+	private HistoricalDataService historicalDataService;
+	
 	@PostMapping("/process")
 	public String process(@RequestBody String rawJson) {
 
-		RecordProcessingUtil.processRecord(rawJson, jobService, resultService, ruleService, ruleResultService, statusCodeService, historicalNameService);
+		RecordProcessingUtil.processRecord(rawJson, jobService, resultService, ruleService, ruleResultService, statusCodeService, historicalNameService, historicalDataService);
 		
 		return "Record Processing Complete";
 	}
