@@ -2,6 +2,9 @@ package io.github.kamilkapadia.karabast.service.data;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +29,11 @@ public class ContentService {
 	@Transactional
 	public Content findById(long theId) {
 		return contentDAO.findById(theId);
+	}
+	
+	@Transactional
+	public Content findbyNameAndChecksums(String name, long crc32, long adler32, String md5, String sha512) {
+		return contentDAO.findbyNameAndChecksums(name, crc32, adler32, md5, sha512);
 	}
 	
 	@Transactional
