@@ -24,11 +24,13 @@ public class HistorcialDataProcessingUtil {
 				historicalData.setResult(result);
 				historicalData.setHistoricalName(historicalName);
 			
-				if (historicalName.getTypeCode().getId() == 1) {
+				int typeCode = historicalName.getTypeCode().getId();
+				
+				if (typeCode == 1) {
 					historicalData.setLongValue(JSONPathUtil.getLong(document, historicalName.getValuePath()));
-				} else if (historicalName.getTypeCode().getId() == 2) {
+				} else if (typeCode == 2) {
 					historicalData.setDoubleValue(JSONPathUtil.getDouble(document, historicalName.getValuePath()));
-				} else if (historicalName.getTypeCode().getId() == 4) {
+				} else if (typeCode == 4) {
 					historicalData.setStringValue(JSONPathUtil.getString(document, historicalName.getValuePath()));
 				} else { // 8
 					historicalData.setBooleanValue(JSONPathUtil.getBoolean(document, historicalName.getValuePath()));

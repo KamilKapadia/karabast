@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.github.kamilkapadia.karabast.dao.data.LastRunDAO;
 import io.github.kamilkapadia.karabast.dto.data.LastRun;
+import io.github.kamilkapadia.karabast.dto.data.Result;
 
 @Service
 public class LastRunService {
@@ -33,5 +34,10 @@ public class LastRunService {
 	@Transactional
 	public LastRun findByJobId(long theId) {
 		return lastRunDAO.findByJobId(theId);
+	}
+	
+	@Transactional
+	public void save(LastRun theLastRun) {
+		lastRunDAO.save(theLastRun);
 	}
 }
