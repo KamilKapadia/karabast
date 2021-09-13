@@ -25,14 +25,8 @@ public class ContentPath {
     @JoinColumn(name="job_id")
 	private Job job;
 	
-	@Column(name = "name_path")
-	private String namePath;
-	
-	@Column(name = "mime_type_path")
-	private String mimeTypePath;
-		
-	@Column(name = "content_path")
-	private String contentPath;
+	@Column(name = "name")
+	private String name;
 	
 	@Column(name = "content_disk_dir")
 	private String diskDir;
@@ -50,11 +44,9 @@ public class ContentPath {
 		
 	}
 	
-	public ContentPath(String namePath, String mimeTypePath, String contentPath, String diskDir, boolean active) {
+	public ContentPath(String name, String diskDir, boolean active) {
 		
-		this.namePath = namePath;
-		this.mimeTypePath = mimeTypePath;
-		this.contentPath = contentPath;
+		this.name = name;
 		this.diskDir = diskDir;
 		this.active = active;
 		this.creationTime = new Timestamp(System.currentTimeMillis());
@@ -77,28 +69,12 @@ public class ContentPath {
 		this.job = job;
 	}
 
-	public String getNamePath() {
-		return namePath;
+	public String getName() {
+		return name;
 	}
 
-	public void setNamePath(String namePath) {
-		this.namePath = namePath;
-	}
-
-	public String getMimeTypePath() {
-		return mimeTypePath;
-	}
-
-	public void setMimeTypePath(String mimeTypePath) {
-		this.mimeTypePath = mimeTypePath;
-	}
-
-	public String getContentPath() {
-		return contentPath;
-	}
-
-	public void setContentPath(String contentPath) {
-		this.contentPath = contentPath;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDiskDir() {
@@ -135,9 +111,8 @@ public class ContentPath {
 
 	@Override
 	public String toString() {
-		return "ContentPath [id=" + id + ", job_id=" + job.getId() + ", namePath=" + namePath + ", "
-				+ "mimeTypePath=" + mimeTypePath + ", contentPath=" + contentPath + ", diskDir=" + diskDir 
-				+ ", active=" + active + ", creationTime=" + creationTime + ", lastUpdateTime=" + lastUpdateTime + "]";
+		return "ContentPath [id=" + id + ", job_id=" + job.getId() + ", name=" + name + ", diskDir=" + diskDir + ", active="
+				+ active + ", creationTime=" + creationTime + ", lastUpdateTime=" + lastUpdateTime + "]";
 	}
 }
 

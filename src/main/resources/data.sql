@@ -105,9 +105,7 @@ CREATE TABLE historical_name (
 CREATE TABLE content_path (
 	id LONG PRIMARY KEY auto_increment NOT NULL, 
 	job_id LONG NOT NULL,
-	name_path VARCHAR(256), 
-	mime_type_path VARCHAR(256),
-	content_path VARCHAR(256),
+	name VARCHAR(256), 
 	content_disk_dir VARCHAR(128),
 	active BOOL DEFAULT true,
     creation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -311,9 +309,9 @@ insert into historical_name (job_id, name, value_path, type_code_id) values (2,	
 insert into historical_name (job_id, name, value_path, type_code_id) values (2,	'height',	'.$height',	1);
 insert into historical_name (job_id, name, value_path, type_code_id) values (2,	'width',	'.$width',	1);
 
-insert into content_path (job_id, name_path, mime_type_path, content_path, content_disk_dir) values (1, 'content', '.$mimetype', '.$content', '/opt');
-insert into content_path (job_id, name_path, mime_type_path, content_path, content_disk_dir) values (1, 'header', '.$mimetype', '.$header', '/opt');
-insert into content_path (job_id, name_path, mime_type_path, content_path, content_disk_dir) values (2, 'test', '.$mimetype', '.$test', '/var');
+insert into content_path (job_id, name, content_disk_dir) values (1, 'test.html','/home/kamilvipa/Downloads/karabast_files');
+insert into content_path (job_id, name, content_disk_dir) values (1, 'header.txt','/home/kamilvipa/Downloads/karabast_files');
+insert into content_path (job_id, name, content_disk_dir) values (2, 'test.html','/home/kamilvipa/Downloads/karabast_files');
 
 insert into rule (job_id, status_type_code, type_code_id, name, value_path, rule_code, expected_value) values (1, 2, 1, 'key', '.$key', 1, '5');
 insert into rule (job_id, status_type_code, type_code_id, name, value_path, rule_code, expected_value) values (1, 2, 1, 'key2', '.$key2', 1, '5');

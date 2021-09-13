@@ -4,6 +4,8 @@ import com.jayway.jsonpath.Configuration;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.Option;
 
+import net.minidev.json.JSONArray;
+
 public class JSONPathUtil {
 
 	public static Object getJSONObject(String json) {
@@ -29,4 +31,9 @@ public class JSONPathUtil {
 	public static boolean getBoolean(Object jsonObject, String jsonPath) {
 	    return Boolean.parseBoolean(JsonPath.read(jsonObject, jsonPath).toString());
 	}
+	
+	public static JSONArray getJSONArray(Object jsonObject, String jsonPath) {
+		return JsonPath.read(jsonObject, jsonPath);
+	}
+	
 }
