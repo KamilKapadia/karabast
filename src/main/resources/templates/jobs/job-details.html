@@ -144,9 +144,7 @@
 	<thead class="thead-dark">
 		<tr>
 			<th>Active</th>
-			<th>Name Path</th>
-			<th>Content Path</th>
-			<th>Mime Type Path</th>
+			<th>Name</th>
 			<th>Disk Directory</th>
 			<th>Creation Time</th>
 			<th>Update Time</th>
@@ -156,9 +154,7 @@
 	<tbody>
 		<tr th:each="tempContents : ${content}">
 			<td th:text="${tempContents.active}" />
-			<td th:text="${tempContents.namePath}" />
-			<td th:text="${tempContents.contentPath}" />
-			<td th:text="${tempContents.mimeTypePath}" />
+			<td th:text="${tempContents.name}" />
 			<td th:text="${tempContents.diskDir}" />
 			<td th:text="${tempContents.creationTime}" />
 			<td th:text="${tempContents.lastUpdateTime}" />

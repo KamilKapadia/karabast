@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.kamilkapadia.karabast.dao.data.ContentResultDAO;
+import io.github.kamilkapadia.karabast.dto.data.Content;
 import io.github.kamilkapadia.karabast.dto.data.ContentResult;
 
 @Service
@@ -34,5 +35,10 @@ public class ContentResultService {
 	@Transactional
 	public List<ContentResult> findByResultId(long theId) {
 		return contentResultDAO.findByResultId(theId);
+	}
+	
+	@Transactional
+	public void save(ContentResult theContentResult) {
+		contentResultDAO.save(theContentResult);
 	}
 }

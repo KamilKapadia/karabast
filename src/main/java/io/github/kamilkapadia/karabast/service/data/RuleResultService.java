@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.kamilkapadia.karabast.dao.data.RuleResultDAO;
+import io.github.kamilkapadia.karabast.dto.data.Result;
 import io.github.kamilkapadia.karabast.dto.data.RuleResult;
 
 @Service
@@ -34,4 +35,10 @@ public class RuleResultService {
 	public List<RuleResult> findByResultId(long theId) {
 		return ruleResultDAO.findByResultId(theId);
 	}
+	
+	@Transactional
+	public void save(RuleResult theRuleResult) {
+		ruleResultDAO.save(theRuleResult);
+	}
+
 }
