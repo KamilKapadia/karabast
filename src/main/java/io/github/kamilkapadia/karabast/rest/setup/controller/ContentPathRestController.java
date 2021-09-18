@@ -1,4 +1,4 @@
-package io.github.kamilkapadia.karabast.rest.setup;
+package io.github.kamilkapadia.karabast.rest.setup.controller;
 
 import java.util.List;
 
