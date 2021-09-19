@@ -1,12 +1,13 @@
-package io.github.kamilkapadia.karabast.rest.setup.model;
+package io.github.kamilkapadia.karabast.rest.setup.response;
 
 import java.util.Date;
 
 import io.github.kamilkapadia.karabast.dto.setup.Rule;
 
-public class RuleBean {
+public class RuleResponse {
 	private long id;
 	private long jobId;
+	private String job;
 	private String name;
 	private String valuePath;
 	private String rule;
@@ -14,9 +15,10 @@ public class RuleBean {
 	private Date creationTime;
 	private Date lastUpdateTime;
 	
-	public RuleBean(Rule rule) {
+	public RuleResponse(Rule rule, String baseUrlString) {
 		setId(rule.getId());
 		setJobId(rule.getJob().getId());
+		setJob(baseUrlString + "/api/jobs/" + getJobId());
 		setName(rule.getName());
 		setValuePath(rule.getValuePath());
 		setRule(rule.getTypeCode().getName() + " " + rule.getRuleCode().getName() + " '" + rule.getExpectedValue() + "' : " + rule.getStatusCode().getName());
@@ -37,6 +39,13 @@ public class RuleBean {
 	public void setJobId(long jobId) {
 		this.jobId = jobId;
 	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -73,11 +82,11 @@ public class RuleBean {
 	public void setLastUpdateTime(Date lastUpdateTime) {
 		this.lastUpdateTime = lastUpdateTime;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "RuleBean [id=" + id + ", jobId=" + jobId + ", name=" + name + ", valuePath=" + valuePath + ", rule="
-				+ rule + ", active=" + active + ", creationTime=" + creationTime + ", lastUpdateTime=" + lastUpdateTime
-				+ "]";
+		return "RuleResponse [id=" + id + ", jobId=" + jobId + ", job=" + job + ", name=" + name + ", valuePath="
+				+ valuePath + ", rule=" + rule + ", active=" + active + ", creationTime=" + creationTime
+				+ ", lastUpdateTime=" + lastUpdateTime + "]";
 	}
 }
