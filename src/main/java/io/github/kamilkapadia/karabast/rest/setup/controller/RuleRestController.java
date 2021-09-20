@@ -2,7 +2,6 @@ package io.github.kamilkapadia.karabast.rest.setup.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +16,7 @@ import io.github.kamilkapadia.karabast.dto.setup.Rule;
 import io.github.kamilkapadia.karabast.rest.RestResponse;
 import io.github.kamilkapadia.karabast.rest.setup.response.RuleResponse;
 import io.github.kamilkapadia.karabast.service.setup.RuleService;
+import io.github.kamilkapadia.karabast.util.RestUtil;
 
 @RestController
 @RequestMapping("/api")
@@ -26,13 +26,15 @@ public class RuleRestController {
 	private RuleService ruleService;
 
 	@GetMapping("/rules/{id}")
-	public ResponseEntity<RestResponse> find(@PathVariable long id) {
+	public ResponseEntity<RestResponse> find(@PathVariable String id) {
 		RestResponse response = new RestResponse(ServletUriComponentsBuilder.fromCurrentRequest());
 		response.setMethod("GET");
-		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/")); 
+		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
 
 		try {
-			Rule rule = ruleService.findById(id);
+			long longId = Long.parseLong(id);
+
+			Rule rule = ruleService.findById(longId);
 
 			if (rule != null) {
 				RuleResponse data = new RuleResponse(rule, baseUrlString);
@@ -45,18 +47,10 @@ public class RuleRestController {
 				return new ResponseEntity<>(response, HttpStatus.OK);
 
 			} else {
-				response.setStatus(404);
-				response.setMessage("Not Found");
-
-				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+				return RestUtil.getNotFoundResponse(response);
 			}
 		} catch (Exception e) {
-			response.setStatus(500);
-			response.setMessage("Internal Server Error : " + e.getMessage());
-
-			// TODO - log the error with the requestId
-
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return RestUtil.getInternalServerErrorResponse(response, e);
 		}
 	}
 
@@ -67,7 +61,7 @@ public class RuleRestController {
 		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
 
 		try {
-			List<Rule> rules =  ruleService.findAll();
+			List<Rule> rules = ruleService.findAll();
 
 			List<RuleResponse> data = new ArrayList<>();
 
@@ -83,29 +77,23 @@ public class RuleRestController {
 
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			} else {
-				response.setStatus(404);
-				response.setMessage("Not Found");
-
-				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+				return RestUtil.getNotFoundResponse(response);
 			}
 		} catch (Exception e) {
-			response.setStatus(500);
-			response.setMessage("Internal Server Error : " + e.getMessage());
-
-			// TODO - log the error with the requestId
-
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+			return RestUtil.getInternalServerErrorResponse(response, e);
 		}
 	}
 
 	@GetMapping("/rules/jobs/{id}")
-	public  ResponseEntity<RestResponse> findByJobId(@PathVariable long id) {
+	public ResponseEntity<RestResponse> findByJobId(@PathVariable String id) {
 		RestResponse response = new RestResponse(ServletUriComponentsBuilder.fromCurrentRequest());
 		response.setMethod("GET");
 		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
 
-		try { 
-			List<Rule> rules = ruleService.findByJobId(id);
+		try {
+			long longId = Long.parseLong(id);
+
+			List<Rule> rules = ruleService.findByJobId(longId);
 
 			List<RuleResponse> data = new ArrayList<>();
 
@@ -121,17 +109,10 @@ public class RuleRestController {
 
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			} else {
-				response.setStatus(404);
-				response.setMessage("Not Found");
-
-				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+				return RestUtil.getNotFoundResponse(response);
 			}
 		} catch (Exception e) {
-			response.setStatus(500);
-			response.setMessage("Internal Server Error : " + e.getMessage());
-
-			// TODO - log the error with the requestId
-
-			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}	}
+			return RestUtil.getInternalServerErrorResponse(response, e);
+		}
+	}
 }
