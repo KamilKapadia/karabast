@@ -3,6 +3,8 @@ package io.github.kamilkapadia.karabast.rest.setup.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,8 @@ import io.github.kamilkapadia.karabast.util.RestUtil;
 @RequestMapping("/api")
 public class RuleRestController {
 
+	private static final Logger LOGGER = LogManager.getLogger(RuleRestController.class);
+	
 	@Autowired
 	private RuleService ruleService;
 
@@ -31,6 +35,8 @@ public class RuleRestController {
 		response.setMethod("GET");
 		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
 
+		LOGGER.info("RuleRestController find - requestId=" + response.getRequestId());
+		
 		try {
 			long longId = Long.parseLong(id);
 
@@ -60,6 +66,8 @@ public class RuleRestController {
 		response.setMethod("GET");
 		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
 
+		LOGGER.info("RuleRestController findAll - requestId=" + response.getRequestId());
+		
 		try {
 			List<Rule> rules = ruleService.findAll();
 
@@ -90,6 +98,8 @@ public class RuleRestController {
 		response.setMethod("GET");
 		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
 
+		LOGGER.info("RuleRestController findByJobId - requestId=" + response.getRequestId());
+		
 		try {
 			long longId = Long.parseLong(id);
 

@@ -111,6 +111,14 @@ public class RestResponse {
 	public void setData(Object data) {
 		this.data = data;
 	}
+
+
+	@Override
+	public String toString() {
+		return "RestResponse [status=" + status + ", message=" + message + ", timestamp=" + timestamp + ", requestId="
+				+ requestId + ", method=" + method + ", requestUrl=" + requestUrl + ", requestBody=" + requestBody
+				+ ", recordCount=" + recordCount + ", data=" + data + "]";
+	}
 	
 	
 	
