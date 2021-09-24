@@ -3,6 +3,8 @@ package io.github.kamilkapadia.karabast.rest.setup.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.github.kamilkapadia.karabast.dto.setup.Job;
 import io.github.kamilkapadia.karabast.dto.setup.Rule;
+import io.github.kamilkapadia.karabast.rest.RestRequest;
 import io.github.kamilkapadia.karabast.rest.RestResponse;
 import io.github.kamilkapadia.karabast.rest.setup.response.JobResponse;
 import io.github.kamilkapadia.karabast.rest.setup.response.RuleResponse;
@@ -24,15 +27,19 @@ import io.github.kamilkapadia.karabast.util.RestUtil;
 @RequestMapping("/api")
 public class JobRestContoller {
 	
+	private static final Logger LOGGER = LogManager.getLogger(JobRestContoller.class);
+
+	
 	@Autowired
 	private JobService jobService;
 	
 	@GetMapping("/jobs/{jobId}")
 	public ResponseEntity<RestResponse> findbyId(@PathVariable String jobId) {
-		RestResponse response = new RestResponse(ServletUriComponentsBuilder.fromCurrentRequest());
-		response.setMethod("GET");
-		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
+		RestRequest request = new RestRequest("GET", ServletUriComponentsBuilder.fromCurrentRequest());
+		String baseUrlString = RestUtil.getBaseUrl(request.getUrl());
 
+		RestResponse response = new RestResponse(request);
+		
 		try {
 			long longId = Long.parseLong(jobId);
 
@@ -40,28 +47,28 @@ public class JobRestContoller {
 
 			if (job != null) {
 				JobResponse data = new JobResponse(job, baseUrlString);
-				response.setData(data);
-
-				response.setStatus(200);
-				response.setMessage("Success");
-				response.setRecordCount(1);
-
+				RestUtil.setFields(response, true, 200, "Find job by id: completed", 1, data);
+				LOGGER.info("Request Completed: requestId=" + response.getRequest().getId() + " " + response);
 				return new ResponseEntity<>(response, HttpStatus.OK);
-
 			} else {
-				return RestUtil.getNotFoundResponse(response);
+				RestUtil.setFields(response, false, 404, "Find job by id: record not found", 0, "");
+				LOGGER.error("Not Found: requestId=" + response.getRequest().getId() + " " + response);
+				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return RestUtil.getInternalServerErrorResponse(response, e);
+			RestUtil.setFields(response, false, 500, "Find job by id: error getting data", 0, "");
+			LOGGER.error("Internal Server Error: requestId=" + response.getRequest().getId() + " " + response, e);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/jobs")
 	public ResponseEntity<RestResponse> findAll() {
-		RestResponse response = new RestResponse(ServletUriComponentsBuilder.fromCurrentRequest());
-		response.setMethod("GET");
-		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
+		RestRequest request = new RestRequest("GET", ServletUriComponentsBuilder.fromCurrentRequest());
+		String baseUrlString = RestUtil.getBaseUrl(request.getUrl());
 
+		RestResponse response = new RestResponse(request);
+		
 		try {
 			List<Job> jobs = jobService.findAll();
 
@@ -72,26 +79,28 @@ public class JobRestContoller {
 			}
 
 			if (data != null && data.size() > 0) {
-				response.setData(data);
-				response.setStatus(200);
-				response.setMessage("Success");
-				response.setRecordCount(data.size());
-
+				RestUtil.setFields(response, true, 200, "Find all jobs: completed", data.size(), data);
+				LOGGER.info("Request Completed: requestId=" + response.getRequest().getId() + " " + response);
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			} else {
-				return RestUtil.getNotFoundResponse(response);
+				RestUtil.setFields(response, false, 404, "Find all jobs: no records found", 0, "");
+				LOGGER.error("Not Found: requestId=" + response.getRequest().getId() + " " + response);
+				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return RestUtil.getInternalServerErrorResponse(response, e);
+			RestUtil.setFields(response, false, 500, "Find all jobs: error getting data", 0, "");
+			LOGGER.error("Internal Server Error: requestId=" + response.getRequest().getId() + " " + response, e);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 	
 	@GetMapping("/jobs/names/{name}")
 	public ResponseEntity<RestResponse> findByName(@PathVariable String name) {
-		RestResponse response = new RestResponse(ServletUriComponentsBuilder.fromCurrentRequest());
-		response.setMethod("GET");
-		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
+		RestRequest request = new RestRequest("GET", ServletUriComponentsBuilder.fromCurrentRequest());
+		String baseUrlString = RestUtil.getBaseUrl(request.getUrl());
 
+		RestResponse response = new RestResponse(request);
+		
 		try {
 			List<Job> jobs = jobService.findByName(name);
 
@@ -102,17 +111,18 @@ public class JobRestContoller {
 			}
 
 			if (data != null && data.size() > 0) {
-				response.setData(data);
-				response.setStatus(200);
-				response.setMessage("Success");
-				response.setRecordCount(data.size());
-
+				RestUtil.setFields(response, true, 200, "Find job by name: completed", data.size(), data);
+				LOGGER.info("Request Completed: requestId=" + response.getRequest().getId() + " " + response);
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			} else {
-				return RestUtil.getNotFoundResponse(response);
+				RestUtil.setFields(response, false, 404, "Find job by name: record not found", 0, "");
+				LOGGER.error("Not Found: requestId=" + response.getRequest().getId() + " " + response);
+				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return RestUtil.getInternalServerErrorResponse(response, e);
+			RestUtil.setFields(response, false, 500, "Find job by name: error getting data", 0, "");
+			LOGGER.error("Internal Server Error: requestId=" + response.getRequest().getId() + " " + response, e);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }

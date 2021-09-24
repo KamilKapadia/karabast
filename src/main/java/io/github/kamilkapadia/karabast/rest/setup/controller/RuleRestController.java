@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.github.kamilkapadia.karabast.dto.setup.Rule;
+import io.github.kamilkapadia.karabast.rest.RestRequest;
 import io.github.kamilkapadia.karabast.rest.RestResponse;
 import io.github.kamilkapadia.karabast.rest.setup.response.RuleResponse;
 import io.github.kamilkapadia.karabast.service.setup.RuleService;
@@ -31,12 +32,11 @@ public class RuleRestController {
 
 	@GetMapping("/rules/{id}")
 	public ResponseEntity<RestResponse> find(@PathVariable String id) {
-		RestResponse response = new RestResponse(ServletUriComponentsBuilder.fromCurrentRequest());
-		response.setMethod("GET");
-		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
+		RestRequest request = new RestRequest("GET", ServletUriComponentsBuilder.fromCurrentRequest());
+		String baseUrlString = RestUtil.getBaseUrl(request.getUrl());
 
-		LOGGER.info("RuleRestController find - requestId=" + response.getRequestId());
-		
+		RestResponse response = new RestResponse(request);
+
 		try {
 			long longId = Long.parseLong(id);
 
@@ -44,29 +44,26 @@ public class RuleRestController {
 
 			if (rule != null) {
 				RuleResponse data = new RuleResponse(rule, baseUrlString);
-				response.setData(data);
-
-				response.setStatus(200);
-				response.setMessage("Success");
-				response.setRecordCount(1);
-
+				RestUtil.setFields(response, true, 200, "Find rule by id: completed", 1, data);
 				return new ResponseEntity<>(response, HttpStatus.OK);
-
 			} else {
-				return RestUtil.getNotFoundResponse(response);
+				RestUtil.setFields(response, false, 404, "Find rule by id: record not found", 0, "");
+				LOGGER.error("Not Found: requestId=" + response.getRequest().getId() + " " + response);
+				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return RestUtil.getInternalServerErrorResponse(response, e);
+			RestUtil.setFields(response, false, 500, "Find rule by id: error getting data", 0, "");
+			LOGGER.error("Internal Server Error: requestId=" + response.getRequest().getId() + " " + response, e);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/rules")
 	public ResponseEntity<RestResponse> findAll() {
-		RestResponse response = new RestResponse(ServletUriComponentsBuilder.fromCurrentRequest());
-		response.setMethod("GET");
-		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
+		RestRequest request = new RestRequest("GET", ServletUriComponentsBuilder.fromCurrentRequest());
+		String baseUrlString = RestUtil.getBaseUrl(request.getUrl());
 
-		LOGGER.info("RuleRestController findAll - requestId=" + response.getRequestId());
+		RestResponse response = new RestResponse(request);
 		
 		try {
 			List<Rule> rules = ruleService.findAll();
@@ -78,27 +75,27 @@ public class RuleRestController {
 			}
 
 			if (data != null && data.size() > 0) {
-				response.setData(data);
-				response.setStatus(200);
-				response.setMessage("Success");
-				response.setRecordCount(data.size());
-
+				RestUtil.setFields(response, true, 200, "Find all rules: completed", data.size(), data);
+				LOGGER.info("Request Completed: requestId=" + response.getRequest().getId() + " " + response);
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			} else {
-				return RestUtil.getNotFoundResponse(response);
+				RestUtil.setFields(response, false, 404, "Find all rules: no records found", 0, "");
+				LOGGER.error("Not Found: requestId=" + response.getRequest().getId() + " " + response);
+				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return RestUtil.getInternalServerErrorResponse(response, e);
+			RestUtil.setFields(response, false, 500, "Find all rules: error getting data", 0, "");
+			LOGGER.error("Internal Server Error: requestId=" + response.getRequest().getId() + " " + response, e);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@GetMapping("/rules/jobs/{id}")
 	public ResponseEntity<RestResponse> findByJobId(@PathVariable String id) {
-		RestResponse response = new RestResponse(ServletUriComponentsBuilder.fromCurrentRequest());
-		response.setMethod("GET");
-		String baseUrlString = response.getRequestUrl().substring(0, response.getRequestUrl().indexOf("/api/"));
+		RestRequest request = new RestRequest("GET", ServletUriComponentsBuilder.fromCurrentRequest());
+		String baseUrlString = RestUtil.getBaseUrl(request.getUrl());
 
-		LOGGER.info("RuleRestController findByJobId - requestId=" + response.getRequestId());
+		RestResponse response = new RestResponse(request);
 		
 		try {
 			long longId = Long.parseLong(id);
@@ -112,17 +109,18 @@ public class RuleRestController {
 			}
 
 			if (data != null && data.size() > 0) {
-				response.setData(data);
-				response.setStatus(200);
-				response.setMessage("Success");
-				response.setRecordCount(data.size());
-
+				RestUtil.setFields(response, true, 200, "Find rule by job id: completed", data.size(), data);
+				LOGGER.info("Request Completed: requestId=" + response.getRequest().getId() + " " + response);
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			} else {
-				return RestUtil.getNotFoundResponse(response);
+				RestUtil.setFields(response, false, 404, "Find rule by job id: record not found", 0, "");
+				LOGGER.error("Not Found: requestId=" + response.getRequest().getId() + " " + response);
+				return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
-			return RestUtil.getInternalServerErrorResponse(response, e);
+			RestUtil.setFields(response, false, 500, "Find rule by job id: error getting data", 0, "");
+			LOGGER.error("Internal Server Error: requestId=" + response.getRequest().getId() + " " + response, e);
+			return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 }
