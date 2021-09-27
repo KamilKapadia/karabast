@@ -1,4 +1,4 @@
-package io.github.kamilkapadia.karabast.rest.process;
+package io.github.kamilkapadia.karabast.rest.process.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

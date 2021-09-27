@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.github.kamilkapadia.karabast.dto.setup.Job;
-import io.github.kamilkapadia.karabast.dto.setup.Rule;
 import io.github.kamilkapadia.karabast.rest.RestRequest;
 import io.github.kamilkapadia.karabast.rest.RestResponse;
 import io.github.kamilkapadia.karabast.rest.setup.response.JobResponse;
-import io.github.kamilkapadia.karabast.rest.setup.response.RuleResponse;
 import io.github.kamilkapadia.karabast.service.setup.JobService;
 import io.github.kamilkapadia.karabast.util.RestUtil;
 

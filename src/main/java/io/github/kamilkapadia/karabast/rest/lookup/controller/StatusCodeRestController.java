@@ -1,4 +1,4 @@
-package io.github.kamilkapadia.karabast.rest.lookup;
+package io.github.kamilkapadia.karabast.rest.lookup.controller;
 
 import java.util.List;
 
