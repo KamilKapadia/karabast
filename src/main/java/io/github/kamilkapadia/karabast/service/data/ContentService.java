@@ -2,9 +2,6 @@ package io.github.kamilkapadia.karabast.service.data;
 
 import java.util.List;
 
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

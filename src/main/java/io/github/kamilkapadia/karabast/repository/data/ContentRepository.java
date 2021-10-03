@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import io.github.kamilkapadia.karabast.dao.data.ContentDAO;
 import io.github.kamilkapadia.karabast.dto.data.Content;
-import io.github.kamilkapadia.karabast.dto.data.ContentResult;
 
 @Repository
 public class ContentRepository implements ContentDAO {

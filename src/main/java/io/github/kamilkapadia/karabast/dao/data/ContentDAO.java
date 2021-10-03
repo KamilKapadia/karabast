@@ -2,8 +2,6 @@ package io.github.kamilkapadia.karabast.dao.data;
 
 import java.util.List;
 
-import javax.persistence.Column;
-
 import io.github.kamilkapadia.karabast.dto.data.Content;
 
 public interface ContentDAO {

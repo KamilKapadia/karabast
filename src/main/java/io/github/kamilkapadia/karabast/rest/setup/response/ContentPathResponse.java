@@ -3,7 +3,6 @@ package io.github.kamilkapadia.karabast.rest.setup.response;
 import java.util.Date;
 
 import io.github.kamilkapadia.karabast.dto.setup.ContentPath;
-import io.github.kamilkapadia.karabast.dto.setup.Rule;
 
 public class ContentPathResponse {
 	private long id;

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.kamilkapadia.karabast.dao.data.ContentResultDAO;
-import io.github.kamilkapadia.karabast.dto.data.Content;
 import io.github.kamilkapadia.karabast.dto.data.ContentResult;
 
 @Service
