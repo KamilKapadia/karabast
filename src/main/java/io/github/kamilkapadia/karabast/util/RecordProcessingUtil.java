@@ -3,7 +3,6 @@ package io.github.kamilkapadia.karabast.util;
 import java.sql.Timestamp;
 import java.util.List;
 
-import io.github.kamilkapadia.karabast.dto.data.LastRun;
 import io.github.kamilkapadia.karabast.dto.data.Result;
 import io.github.kamilkapadia.karabast.dto.data.RuleResult;
 import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;

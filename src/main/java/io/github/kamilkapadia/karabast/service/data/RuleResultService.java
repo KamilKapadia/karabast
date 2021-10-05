@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import io.github.kamilkapadia.karabast.dao.data.RuleResultDAO;
-import io.github.kamilkapadia.karabast.dto.data.Result;
 import io.github.kamilkapadia.karabast.dto.data.RuleResult;
 
 @Service

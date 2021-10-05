@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import io.github.kamilkapadia.karabast.dao.data.LastRunDAO;
 import io.github.kamilkapadia.karabast.dto.data.LastRun;
-import io.github.kamilkapadia.karabast.dto.data.Result;
 
 @Service
 public class LastRunService {
