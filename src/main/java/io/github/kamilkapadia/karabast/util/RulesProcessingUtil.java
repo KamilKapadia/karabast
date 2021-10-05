@@ -3,16 +3,16 @@ package io.github.kamilkapadia.karabast.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.kamilkapadia.karabast.dto.data.Result;
-import io.github.kamilkapadia.karabast.dto.data.RuleResult;
-import io.github.kamilkapadia.karabast.dto.lookup.RuleCode;
-import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;
-import io.github.kamilkapadia.karabast.dto.lookup.TypeCode;
-import io.github.kamilkapadia.karabast.dto.setup.Job;
-import io.github.kamilkapadia.karabast.dto.setup.Rule;
-import io.github.kamilkapadia.karabast.service.data.RuleResultService;
-import io.github.kamilkapadia.karabast.service.lookup.StatusCodeService;
-import io.github.kamilkapadia.karabast.service.setup.RuleService;
+import io.github.kamilkapadia.karabast.components.data.result.Result;
+import io.github.kamilkapadia.karabast.components.data.ruleresult.RuleResult;
+import io.github.kamilkapadia.karabast.components.data.ruleresult.RuleResultService;
+import io.github.kamilkapadia.karabast.components.lookup.rulecode.RuleCode;
+import io.github.kamilkapadia.karabast.components.lookup.statuscode.StatusCode;
+import io.github.kamilkapadia.karabast.components.lookup.statuscode.StatusCodeService;
+import io.github.kamilkapadia.karabast.components.lookup.typecode.TypeCode;
+import io.github.kamilkapadia.karabast.components.setup.job.Job;
+import io.github.kamilkapadia.karabast.components.setup.rule.Rule;
+import io.github.kamilkapadia.karabast.components.setup.rule.RuleService;
 
 public class RulesProcessingUtil {
 

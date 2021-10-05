@@ -10,14 +10,14 @@ import java.util.Map;
 
 import org.apache.commons.codec.binary.Base64;
 
-import io.github.kamilkapadia.karabast.dto.data.Content;
-import io.github.kamilkapadia.karabast.dto.data.ContentResult;
-import io.github.kamilkapadia.karabast.dto.data.Result;
-import io.github.kamilkapadia.karabast.dto.setup.ContentPath;
-import io.github.kamilkapadia.karabast.dto.setup.Job;
-import io.github.kamilkapadia.karabast.service.data.ContentResultService;
-import io.github.kamilkapadia.karabast.service.data.ContentService;
-import io.github.kamilkapadia.karabast.service.setup.ContentPathService;
+import io.github.kamilkapadia.karabast.components.data.content.Content;
+import io.github.kamilkapadia.karabast.components.data.content.ContentService;
+import io.github.kamilkapadia.karabast.components.data.contentresult.ContentResult;
+import io.github.kamilkapadia.karabast.components.data.contentresult.ContentResultService;
+import io.github.kamilkapadia.karabast.components.data.result.Result;
+import io.github.kamilkapadia.karabast.components.setup.contentpath.ContentPath;
+import io.github.kamilkapadia.karabast.components.setup.contentpath.ContentPathService;
+import io.github.kamilkapadia.karabast.components.setup.job.Job;
 import net.minidev.json.JSONArray;
 
 public class ContentProcessingUtil {

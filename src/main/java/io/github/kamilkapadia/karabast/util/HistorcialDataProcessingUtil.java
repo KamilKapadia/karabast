@@ -2,12 +2,12 @@ package io.github.kamilkapadia.karabast.util;
 
 import java.util.List;
 
-import io.github.kamilkapadia.karabast.dto.data.HistoricalData;
-import io.github.kamilkapadia.karabast.dto.data.Result;
-import io.github.kamilkapadia.karabast.dto.setup.HistoricalName;
-import io.github.kamilkapadia.karabast.dto.setup.Job;
-import io.github.kamilkapadia.karabast.service.data.HistoricalDataService;
-import io.github.kamilkapadia.karabast.service.setup.HistoricalNameService;
+import io.github.kamilkapadia.karabast.components.data.historicaldata.HistoricalData;
+import io.github.kamilkapadia.karabast.components.data.historicaldata.HistoricalDataService;
+import io.github.kamilkapadia.karabast.components.data.result.Result;
+import io.github.kamilkapadia.karabast.components.setup.historicalname.HistoricalName;
+import io.github.kamilkapadia.karabast.components.setup.historicalname.HistoricalNameService;
+import io.github.kamilkapadia.karabast.components.setup.job.Job;
 
 public class HistorcialDataProcessingUtil {
 

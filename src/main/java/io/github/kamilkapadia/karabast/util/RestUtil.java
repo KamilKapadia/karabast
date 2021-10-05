@@ -1,6 +1,6 @@
 package io.github.kamilkapadia.karabast.util;
 
-import io.github.kamilkapadia.karabast.rest.RestResponse;
+import io.github.kamilkapadia.karabast.components.RestResponse;
 
 public class RestUtil {
 

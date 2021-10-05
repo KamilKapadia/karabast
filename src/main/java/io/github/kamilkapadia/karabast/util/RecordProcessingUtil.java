@@ -3,21 +3,21 @@ package io.github.kamilkapadia.karabast.util;
 import java.sql.Timestamp;
 import java.util.List;
 
-import io.github.kamilkapadia.karabast.dto.data.Result;
-import io.github.kamilkapadia.karabast.dto.data.RuleResult;
-import io.github.kamilkapadia.karabast.dto.lookup.StatusCode;
-import io.github.kamilkapadia.karabast.dto.setup.Job;
-import io.github.kamilkapadia.karabast.service.data.ContentResultService;
-import io.github.kamilkapadia.karabast.service.data.ContentService;
-import io.github.kamilkapadia.karabast.service.data.HistoricalDataService;
-import io.github.kamilkapadia.karabast.service.data.LastRunService;
-import io.github.kamilkapadia.karabast.service.data.ResultService;
-import io.github.kamilkapadia.karabast.service.data.RuleResultService;
-import io.github.kamilkapadia.karabast.service.lookup.StatusCodeService;
-import io.github.kamilkapadia.karabast.service.setup.ContentPathService;
-import io.github.kamilkapadia.karabast.service.setup.HistoricalNameService;
-import io.github.kamilkapadia.karabast.service.setup.JobService;
-import io.github.kamilkapadia.karabast.service.setup.RuleService;
+import io.github.kamilkapadia.karabast.components.data.content.ContentService;
+import io.github.kamilkapadia.karabast.components.data.contentresult.ContentResultService;
+import io.github.kamilkapadia.karabast.components.data.historicaldata.HistoricalDataService;
+import io.github.kamilkapadia.karabast.components.data.lastrun.LastRunService;
+import io.github.kamilkapadia.karabast.components.data.result.Result;
+import io.github.kamilkapadia.karabast.components.data.result.ResultService;
+import io.github.kamilkapadia.karabast.components.data.ruleresult.RuleResult;
+import io.github.kamilkapadia.karabast.components.data.ruleresult.RuleResultService;
+import io.github.kamilkapadia.karabast.components.lookup.statuscode.StatusCode;
+import io.github.kamilkapadia.karabast.components.lookup.statuscode.StatusCodeService;
+import io.github.kamilkapadia.karabast.components.setup.contentpath.ContentPathService;
+import io.github.kamilkapadia.karabast.components.setup.historicalname.HistoricalNameService;
+import io.github.kamilkapadia.karabast.components.setup.job.Job;
+import io.github.kamilkapadia.karabast.components.setup.job.JobService;
+import io.github.kamilkapadia.karabast.components.setup.rule.RuleService;
 
 
 public class RecordProcessingUtil {

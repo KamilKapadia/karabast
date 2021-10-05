@@ -2,8 +2,8 @@ package io.github.kamilkapadia.karabast.util;
 
 import java.util.List;
 
-import io.github.kamilkapadia.karabast.dto.setup.Job;
-import io.github.kamilkapadia.karabast.service.setup.JobService;
+import io.github.kamilkapadia.karabast.components.setup.job.Job;
+import io.github.kamilkapadia.karabast.components.setup.job.JobService;
 
 public class JobProcessingUtil {
 
