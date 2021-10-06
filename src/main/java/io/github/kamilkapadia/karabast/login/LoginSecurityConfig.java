@@ -3,6 +3,8 @@ package io.github.kamilkapadia.karabast.login;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 //import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,13 +17,29 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableWebSecurity
 public class LoginSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Autowired
-	private DataSource securityDataSource;
+//	@Autowired
+//	private DataSource securityDataSource;
+	
+	@Value("${login.datasource.url}")
+	private String dbUrl;
+	@Value("${login.datasource.username}")
+	private String username;
+	@Value("${login.datasource.password}")
+	private String password;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// Use JDBC authentication
-		auth.jdbcAuthentication().dataSource(securityDataSource);
+		auth.jdbcAuthentication().dataSource(getSecurityDataSource());
+	}
+	
+	private DataSource getSecurityDataSource() {
+	    DataSourceBuilder<?> builder = DataSourceBuilder.create()
+	        .url(dbUrl)
+	        .username(username)
+	        .password(password);
+
+	    return builder.build();
 	}
 
 	@Override

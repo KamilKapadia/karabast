@@ -19,44 +19,44 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import com.zaxxer.hikari.HikariDataSource;
 
 
-//@Configuration
-//@EnableTransactionManagement
-//@EnableJpaRepositories(
-//		entityManagerFactoryRef = "applicationEntityManagerFactory", basePackages = {
-//		"io.github.kamilkapadia.karabast.components" })
+@Configuration
+@EnableTransactionManagement
+@EnableJpaRepositories(
+		entityManagerFactoryRef = "applicationEntityManagerFactory", basePackages = {
+		"io.github.kamilkapadia.karabast.components" })
 public class ApplicationDBConfig {
 
-//	@Primary
-//	@Bean(name = "applicationDataSourceProperties")
-//	@ConfigurationProperties("application.datasource")
-//	public DataSourceProperties dataSourceProperties() {
-//		return new DataSourceProperties();
-//	}
-//
-//	@Primary
-//	@Bean(name = "applicationDataSource")
-//	@ConfigurationProperties("application.datasource.configuration")
-//	public DataSource dataSource(@Qualifier("applicationDataSourceProperties") DataSourceProperties dataSourceProperties) {
-//		return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class)
-//				.build();
-//	}
-//
-//	@Primary
-//	@Bean(name = "applicationEntityManagerFactory")
-//	public LocalContainerEntityManagerFactoryBean entityManagerFactory(
-//			EntityManagerFactoryBuilder builder, @Qualifier("applicationDataSource") DataSource applicationDataSource) {
-//		return builder
-//				.dataSource(applicationDataSource)
-//				.packages("io.github.kamilkapadia.karabast.components")
-//				.persistenceUnit("application")
-//				.build();
-//	}
-//
-//	@Primary
-//	@Bean(name = "applicationTransactionManager")
-//	public PlatformTransactionManager transactionManager(
-//			@Qualifier("applicationEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
-//		return new JpaTransactionManager(entityManagerFactory);
-//	}
+	@Primary
+	@Bean(name = "applicationDataSourceProperties")
+	@ConfigurationProperties("application.datasource")
+	public DataSourceProperties dataSourceProperties() {
+		return new DataSourceProperties();
+	}
+
+	@Primary
+	@Bean(name = "applicationDataSource")
+	@ConfigurationProperties("application.datasource.configuration")
+	public DataSource dataSource(@Qualifier("applicationDataSourceProperties") DataSourceProperties dataSourceProperties) {
+		return dataSourceProperties.initializeDataSourceBuilder().type(HikariDataSource.class)
+				.build();
+	}
+
+	@Primary
+	@Bean(name = "applicationEntityManagerFactory")
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(
+			EntityManagerFactoryBuilder builder, @Qualifier("applicationDataSource") DataSource applicationDataSource) {
+		return builder
+				.dataSource(applicationDataSource)
+				.packages("io.github.kamilkapadia.karabast.components")
+				.persistenceUnit("application")
+				.build();
+	}
+
+	@Primary
+	@Bean(name = "applicationTransactionManager")
+	public PlatformTransactionManager transactionManager(
+			@Qualifier("applicationEntityManagerFactory") EntityManagerFactory entityManagerFactory) {
+		return new JpaTransactionManager(entityManagerFactory);
+	}
 }
 
