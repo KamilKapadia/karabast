@@ -55,9 +55,15 @@
 			<input type="text" id="expectedValue" th:field="*{expectedValue}" class="form-control mb-4 col-4" placeholder="Expected Value">
 			
 			<!-- Dropdown -->
-			<label for="statusType">Status Type:</label>
-			<select th:field="*{statusCode.id}">
-				<option th:each="statusCode : ${statusCodes}" th:value="${statusCode.id}" th:text="${statusCode.name}"></option>
+			<label for="statusType">Pass Status:</label>
+			<select th:field="*{goodStatusCode.id}">
+				<option th:each="goodStatusCode : ${statusCodes}" th:value="${goodStatusCode.id}" th:text="${goodStatusCode.name}"></option>
+			</select>
+			
+			<!-- Dropdown -->
+			<label for="statusType">Fail Status:</label>
+			<select th:field="*{badStatusCode.id}">
+				<option th:each="badStatusCode : ${statusCodes}" th:value="${badStatusCode.id}" th:text="${badStatusCode.name}"></option>
 			</select>
 			
 			<button type="submit" class="btn btn-info col-2">Save</button>

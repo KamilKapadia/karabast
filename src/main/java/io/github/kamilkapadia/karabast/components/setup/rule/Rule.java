@@ -50,8 +50,12 @@ public class Rule {
 	private Job job; 
 	
 	@ManyToOne(cascade = {CascadeType.REFRESH})
-    @JoinColumn(name="status_type_code")
-	private StatusCode statusCode; 
+    @JoinColumn(name="good_status_type_code")
+	private StatusCode goodStatusCode;
+	
+	@ManyToOne(cascade = {CascadeType.REFRESH})
+    @JoinColumn(name="bad_status_type_code")
+	private StatusCode badStatusCode;
 	
 	@ManyToOne(cascade = {CascadeType.REFRESH})
 	@JoinColumn(name = "type_code_id")
@@ -65,14 +69,15 @@ public class Rule {
 		
 	}
 	
-	public Rule(String name, String valuePath, String expectedValue, StatusCode statusCode, TypeCode typeCode, 
-			RuleCode ruleCode, boolean active) {
+	public Rule(String name, String valuePath, String expectedValue, StatusCode goodStatusCode, 
+			StatusCode badStatusCode, TypeCode typeCode, RuleCode ruleCode, boolean active) {
 		
 		super();
 		this.name = name;
 		this.valuePath = valuePath;
 		this.expectedValue = expectedValue;
-		this.statusCode = statusCode;
+		this.goodStatusCode = goodStatusCode;
+		this.badStatusCode = badStatusCode;
 		this.typeCode = typeCode;
 		this.ruleCode = ruleCode;
 		this.active = active;
@@ -144,14 +149,20 @@ public class Rule {
 		this.job = job;
 	}
 
-	
-
-	public StatusCode getStatusCode() {
-		return statusCode;
+	public StatusCode getGoodStatusCode() {
+		return goodStatusCode;
 	}
 
-	public void setStatusCode(StatusCode statusCode) {
-		this.statusCode = statusCode;
+	public void setGoodStatusCode(StatusCode goodStatusCode) {
+		this.goodStatusCode = goodStatusCode;
+	}
+
+	public StatusCode getBadStatusCode() {
+		return badStatusCode;
+	}
+
+	public void setBadStatusCode(StatusCode badStatusCode) {
+		this.badStatusCode = badStatusCode;
 	}
 
 	public TypeCode getTypeCode() {
@@ -174,7 +185,9 @@ public class Rule {
 	public String toString() {
 		return "Rule [id=" + id + ", name=" + name + ", valuePath=" + valuePath + ", expectedValue=" + expectedValue
 				+ ", active=" + active + ", creationTime=" + creationTime + ", lastUpdateTime=" + lastUpdateTime
-				+ ", job_id=" + job.getId() + ", statusCode=" + statusCode + ", typeCode=" + typeCode + ", "
-				+ "ruleCode=" + ruleCode + "]";
-	} 
+				+ ", job=" + job + ", goodStatusCode=" + goodStatusCode + ", badStatusCode=" + badStatusCode
+				+ ", typeCode=" + typeCode + ", ruleCode=" + ruleCode + "]";
+	}
+
+	
 }

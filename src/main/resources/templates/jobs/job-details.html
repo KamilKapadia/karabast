@@ -59,7 +59,8 @@
 			<th>Path</th>
 			<th>Rule</th>
 			<th>Expected Value</th>
-			<th>Status Type</th>
+			<th>Pass Status</th>
+			<th>Fail Status</th>
 			<th>Creation Time</th>
 			<th>Update Time</th>
 			<th>Action</th>
@@ -73,7 +74,8 @@
 			<td th:text="${tempRule.valuePath}" />
 			<td th:text="${tempRule.ruleCode.name}" />
 			<td th:text="${tempRule.expectedValue}" />
-			<td th:text="${tempRule.statusCode.name}" />
+			<td th:text="${tempRule.goodStatusCode.name}" />
+			<td th:text="${tempRule.badStatusCode.name}" />
 			<td th:text="${tempRule.creationTime}" />
 			<td th:text="${tempRule.lastUpdateTime}" />
 			

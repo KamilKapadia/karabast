@@ -18,6 +18,7 @@ import io.github.kamilkapadia.karabast.components.setup.historicalname.Historica
 import io.github.kamilkapadia.karabast.components.setup.job.Job;
 import io.github.kamilkapadia.karabast.components.setup.job.JobService;
 import io.github.kamilkapadia.karabast.components.setup.rule.RuleService;
+import io.github.kamilkapadia.karabast.util.rules.RulesProcessingUtil;
 
 
 public class RecordProcessingUtil {

@@ -20,7 +20,7 @@ public class RuleModel {
 		setName(rule.getName());
 		setValuePath(rule.getValuePath());
 		setRule(rule.getTypeCode().getName() + " " + rule.getRuleCode().getName() + " '" + rule.getExpectedValue()
-				+ "' : " + rule.getStatusCode().getName());
+				+ "' : " + rule.getGoodStatusCode().getName() + " otherwise: " + rule.getBadStatusCode().getName());
 		setActive(rule.isActive());
 		setCreationTime(rule.getCreationTime());
 		setLastUpdateTime(rule.getLastUpdateTime());

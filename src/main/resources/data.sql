@@ -59,6 +59,10 @@ insert into rule_code(id, type_mask, name) values (7, 5, 'GREATER THAN OR EQUALS
 insert into rule_code(id, type_mask, name) values (8, 5, 'LESS THAN OR EQUALS');
 insert into rule_code(id, type_mask, name) values (9, 5, 'IS IN');
 insert into rule_code(id, type_mask, name) values (10, 5, 'IS NOT IN');
+insert into rule_code(id, type_mask, name) values (11, 5, 'STARTS WITH');
+insert into rule_code(id, type_mask, name) values (12, 5, 'STARTS WITH');
+insert into rule_code(id, type_mask, name) values (13, 5, 'ENDS WITH');
+
 
 CREATE TABLE action_code (
 	id INT PRIMARY KEY NOT NULL,
@@ -115,7 +119,8 @@ CREATE TABLE content_path (
 CREATE TABLE rule (
 	id LONG PRIMARY KEY auto_increment NOT NULL,
 	job_id LONG NOT NULL, 
-	status_type_code INT NOT NULL, 
+	good_status_type_code INT NOT NULL, 
+	bad_status_type_code INT NOT NULL,
 	type_code_id INT NOT NULL, 
 	name VARCHAR(80) NOT NULL,
 	value_path VARCHAR(256) NOT NULL,
@@ -219,8 +224,12 @@ ALTER TABLE rule
     REFERENCES JOB (ID) ON DELETE CASCADE;    
 
 ALTER TABLE rule
-    ADD FOREIGN KEY (STATUS_TYPE_CODE) 
+    ADD FOREIGN KEY (good_status_type_code) 
     REFERENCES STATUS_CODE (ID);        
+
+ALTER TABLE rule
+    ADD FOREIGN KEY (bad_status_type_code) 
+    REFERENCES STATUS_CODE (ID);  
     
 ALTER TABLE rule
     ADD FOREIGN KEY (TYPE_CODE_ID) 
@@ -313,9 +322,8 @@ insert into content_path (job_id, name, content_disk_dir) values (1, 'test.html'
 insert into content_path (job_id, name, content_disk_dir) values (1, 'header.txt','/home/kamilvipa/Downloads/karabast_files');
 insert into content_path (job_id, name, content_disk_dir) values (2, 'test.html','/home/kamilvipa/Downloads/karabast_files');
 
-insert into rule (job_id, status_type_code, type_code_id, name, value_path, rule_code, expected_value) values (1, 2, 1, 'key', '.$key', 1, '5');
-insert into rule (job_id, status_type_code, type_code_id, name, value_path, rule_code, expected_value) values (1, 2, 1, 'key2', '.$key2', 1, '5');
-insert into rule (job_id, status_type_code, type_code_id, name, value_path, rule_code, expected_value) values (2, 32, 1, 'key3', '.$key3', 1, '5');
+insert into rule (job_id, good_status_type_code, bad_status_type_code, type_code_id, name, value_path, rule_code, expected_value) values (1, 2, 32, 4, 'response', '$.data.results.response', 1, '200 OK');
+insert into rule (job_id, good_status_type_code, bad_status_type_code, type_code_id, name, value_path, rule_code, expected_value) values (1, 2, 32, 1, 'size', '$.data.results.contentLength', 1, '12575');
 
 insert into action (job_id, type_mask, action_mask) values (1, 3, 1);
 insert into action (job_id, type_mask, action_mask) values (2, 5, 3);
