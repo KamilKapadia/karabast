@@ -43,7 +43,7 @@ public class ActionController {
 		List<StatusCode> allStatusCodes = statusCodeService.findAll();
 		List<ActionCode> allActionCodes = actionCodeService.findAll();
 		
-		int statusMask = theAction.getTypeMask();
+		int statusMask = theAction.getStatusMask();
 		
 		List<StatusCode> statusCodes = new ArrayList<StatusCode>();
 		

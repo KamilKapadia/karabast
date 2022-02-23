@@ -32,8 +32,8 @@ public class Action {
     @JoinColumn(name="job_id")
 	private Job job;
 	
-	@Column(name = "type_mask")
-	private int typeMask;
+	@Column(name = "status_mask")
+	private int statusMask;
 	
 	@Column(name = "action_mask")
 	private int actionMask;
@@ -61,9 +61,9 @@ public class Action {
 
 	
 	
-	public Action(int typeMask, int actionMask, boolean active) {
+	public Action(int statusMask, int actionMask, boolean active) {
 		super();
-		this.typeMask = typeMask;
+		this.statusMask = statusMask;
 		this.actionMask = actionMask;
 		this.active = active;
 		this.creationTime = new Timestamp(System.currentTimeMillis());
@@ -88,12 +88,12 @@ public class Action {
 		this.job = job;
 	}
 
-	public int getTypeMask() {
-		return typeMask;
+	public int getStatusMask() {
+		return statusMask;
 	}
 
-	public void setTypeMask(int typeMask) {
-		this.typeMask = typeMask;
+	public void setStatusMask(int statusMask) {
+		this.statusMask = statusMask;
 	}
 
 	public int getActionMask() {
@@ -141,7 +141,7 @@ public class Action {
 			mask = mask | statusCode.getId();
 		}
 		
-		setTypeMask(mask);
+		setStatusMask(mask);
 	}
 
 	public void setStatuses(int[] statusCodes) {
@@ -151,7 +151,7 @@ public class Action {
 			mask = mask | statusCode;
 		}
 		
-		setTypeMask(mask);
+		setStatusMask(mask);
 	}
 
 
@@ -177,7 +177,7 @@ public class Action {
 
 	@Override
 	public String toString() {
-		return "Action [id=" + id + ", job=" + job + ", typeMask=" + typeMask + ", actionMask=" + actionMask
+		return "Action [id=" + id + ", job=" + job + ", statusMask=" + statusMask + ", actionMask=" + actionMask
 				+ ", active=" + active + ", creationTime=" + creationTime + ", lastUpdateTime=" + lastUpdateTime
 				+ ", statuses=" + statuses + ", actions=" + actions + "]";
 	}

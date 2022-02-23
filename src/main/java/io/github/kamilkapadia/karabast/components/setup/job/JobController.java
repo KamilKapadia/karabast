@@ -117,7 +117,7 @@ public class JobController {
 		for (Action action : actions) {
 			List<StatusCode> theStatusCodes = new ArrayList<StatusCode>();
 			
-			int statusMask = action.getTypeMask();
+			int statusMask = action.getStatusMask();
 			
 			for (StatusCode statusCode : statusCodes) {
 				if ( (statusMask & statusCode.getId()) > 0) {

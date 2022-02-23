@@ -24,7 +24,7 @@ public class ActionModel {
 		setId(action.getId());
 		setJobId(action.getJob().getId());
 		setJob(baseUrlString + "/api/jobs/" + getJobId());
-		setStatusMask(action.getTypeMask());
+		setStatusMask(action.getStatusMask());
 		setActionMask(action.getActionMask());
 		setActive(action.isActive());
 		setCreationTime(action.getCreationTime());
@@ -33,7 +33,7 @@ public class ActionModel {
 		List<StatusCode> statusCodes = new ArrayList<StatusCode>();
 		
 		for (StatusCode statusCode : allStatusCodes) {
-			if ( (action.getTypeMask() & statusCode.getId()) > 0) {
+			if ( (action.getStatusMask() & statusCode.getId()) > 0) {
 				statusCodes.add(statusCode);
 			}
 		}

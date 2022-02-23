@@ -134,7 +134,7 @@ CREATE TABLE rule (
 CREATE TABLE action (
 	id LONG PRIMARY KEY auto_increment NOT NULL,
 	job_id LONG NOT NULL,
-	type_mask INT NOT NULL,
+	status_mask INT NOT NULL,
 	action_mask INT NOT NULL,
 	active BOOL DEFAULT true,
     creation_time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -325,8 +325,8 @@ insert into content_path (job_id, name, content_disk_dir) values (2, 'test.html'
 insert into rule (job_id, good_status_type_code, bad_status_type_code, type_code_id, name, value_path, rule_code, expected_value) values (1, 2, 32, 4, 'response', '$.data.results.response', 1, '200 OK');
 insert into rule (job_id, good_status_type_code, bad_status_type_code, type_code_id, name, value_path, rule_code, expected_value) values (1, 2, 32, 1, 'size', '$.data.results.contentLength', 1, '12575');
 
-insert into action (job_id, type_mask, action_mask) values (1, 3, 1);
-insert into action (job_id, type_mask, action_mask) values (2, 5, 3);
+insert into action (job_id, status_mask, action_mask) values (1, 3, 1);
+insert into action (job_id, status_mask, action_mask) values (2, 5, 3);
 
 insert into result (job_id,	run, status_type_code, exec_time) values (1, 1, 1, 1.2);
 insert into result (job_id,	run, status_type_code, exec_time) values (1, 2, 1, 3.2);
