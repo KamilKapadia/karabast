@@ -37,6 +37,7 @@ public class RecordProcessingUtil {
 		double executionTime = JSONPathUtil.getDouble(document, EXECUTION_TIME);
 		
 		if (job != null ) {
+			// TODO - process the rules
 			List<RuleResult> ruleResults = RulesProcessingUtil.validate(ruleService, document, job);
 			StatusCode statusCode = RulesProcessingUtil.getStatusCode(statusCodeService, ruleResults);
 			

@@ -52,6 +52,8 @@ public class RulesProcessingUtil {
 		List<Integer> results = new ArrayList<>();
 		
 		// TODO - this is going to have to do more for checking all rules...
+		System.out.println("Number of rules: " + rules.size());
+		
 		for (Rule rule : rules) {
 			boolean ruleActive = rule.isActive();
 			
@@ -66,6 +68,7 @@ public class RulesProcessingUtil {
 				
 				String pathValueString = JSONPathUtil.getString(document, valuePath);
 				
+				// TODO
 				System.err.println("---------------------------------------------------------------------------------");
 				System.err.println("pathValueString: " + pathValueString);
 				System.err.println("typeCode: " + typeCode);
@@ -74,6 +77,7 @@ public class RulesProcessingUtil {
 				System.err.println("badStatusCode: " + badStatusCode);
 				System.err.println("expectedValueString: " + expectedValueString);
 				System.err.println("---------------------------------------------------------------------------------");
+				// TODO
 				
 				int result = 1;
 				
@@ -107,19 +111,31 @@ public class RulesProcessingUtil {
 				
 				ruleResult.setRule(rule);
 				ruleResult.setConditionMet(1);
-				ruleResult.setReason("Test Reason");
+				ruleResult.setReason("Expected " + pathValueString + " to " + ruleCode.getName() + " " + expectedValueString);
+				
+				//TODO
+				System.err.println("Rule Result: " + ruleResult.getReason());
 				
 				ruleResults.add(ruleResult);
 			}
 		}
 		
+		// TODO
 		System.err.println(results);
+		// TODO
+		System.err.println(ruleResults.size());
 		
 		return ruleResults;
 	}
 	
 	public static StatusCode getStatusCode(StatusCodeService statusCodeService, List<RuleResult> ruleResults) {
 		// TODO Auto-generated method stub
+		
+		for (RuleResult ruleResult : ruleResults) {
+			// TODO
+			System.out.println("Persist Results: " + ruleResult.getRule().getName());
+		}
+		
 		return statusCodeService.findById(2);
 	}
 
@@ -127,6 +143,10 @@ public class RulesProcessingUtil {
 		
 		for (RuleResult ruleResult : ruleResults) {
 			ruleResult.setResult(result);
+			
+			// TODO
+			System.out.println("Persist Results: " + ruleResult.getRule().getExpectedValue() + " " + ruleResult.getConditionMet() + " " + ruleResult.getReason());
+			
 			ruleResultService.save(ruleResult);	
 		}
 	}
