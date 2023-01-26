@@ -60,9 +60,9 @@ insert into rule_code(id, type_mask, name) values (8, 5, 'LESS THAN OR EQUALS');
 insert into rule_code(id, type_mask, name) values (9, 5, 'IS IN');
 insert into rule_code(id, type_mask, name) values (10, 5, 'IS NOT IN');
 insert into rule_code(id, type_mask, name) values (11, 5, 'STARTS WITH');
-insert into rule_code(id, type_mask, name) values (12, 5, 'STARTS WITH');
+insert into rule_code(id, type_mask, name) values (12, 5, 'NOT STARTS WITH');
 insert into rule_code(id, type_mask, name) values (13, 5, 'ENDS WITH');
-
+insert into rule_code(id, type_mask, name) values (14, 5, 'NOT ENDS WITH');
 
 CREATE TABLE action_code (
 	id INT PRIMARY KEY NOT NULL,
