@@ -66,48 +66,82 @@ public class RulesProcessingUtil {
 		List<Rule> rules = ruleService.findByJobId(job.getId());
 		List<RuleResult> ruleResults = new ArrayList<RuleResult>();
 		
-		List<Integer> results = new ArrayList<>();
+		//List<Integer> results = new ArrayList<>();
+		
+		List<String> enRules = new ArrayList<>();
+		List<String> ruleStrings = new ArrayList<>();
+        
 		
 		// TODO - this is going to have to do more for checking all rules...
-		System.out.println("Number of rules: " + rules.size());
+//		System.out.println("Number of rules: " + rules.size());
+		
+		// STRING "$.data.results.response" EQUALS 200 OK ? RUNNING CORRECTLY : DOWN
+		// INTEGER "$.data.results.contentLength" EQUALS 12575 ? RUNNING CORRECTLY : DOWN
 		
 		for (Rule rule : rules) {
 			boolean ruleActive = rule.isActive();
 			
 			if (ruleActive) {
 				
-				// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-				
-				String enString1 = "BOOLEAN isNightSurcharge EQUALS false";
-		    	String enString2 = "INTEGER distanceInMile LESS-THAN 10";
-		    	String enString_full = "(BOOLEAN isNightSurcharge EQUALS false AND INTEGER distanceInMile LESS-THAN 10)";
-		    	
-		    	String mvelString1 = convertStringToCode(enString1);
-		    	String mvelString2 = convertStringToCode(enString2);
-		        String mvelString_full = convertStringToCode(enString_full);
-		        
-		        String rule1 = RULE_TEMPLATE.replace("{0}", "Rule 1").replace("{1}", mvelString1).replace("{2}", enString1);
-		        String rule2 = RULE_TEMPLATE.replace("{0}", "Rule 2").replace("{1}", mvelString2).replace("{2}", enString2);
-		        String rule3 = RULE_TEMPLATE.replace("{0}", "Rule 3").replace("{1}", mvelString_full).replace("{2}", enString_full);
-		        
-		        List<String> ruleStrings = new ArrayList<>();
-		        ruleStrings.add(rule1);
-		        ruleStrings.add(rule2);
-		        ruleStrings.add(rule3);
-		        
-		        RuleConfiguration ruleConfiguration = new RuleConfiguration(ruleStrings);
-		        RuleDataCalculationService ruleDataCalculationService = new RuleDataCalculationService(ruleConfiguration);
-				
-		        DroolsRuleData ruleData = new DroolsRuleData();
-		        ruleData.setBooleanValue("isNightSurcharge", false);
-		        ruleData.setLongValue("distanceInMile", 9L);
-		        
-		        DroolsRuleResult ruleResult = new DroolsRuleResult(enString1, enString2, enString_full);
-		        String retval = ruleDataCalculationService.calculate(ruleData, ruleResult);
-		        System.out.println();
-		        System.out.println(retval);
-				
-				// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//				// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//				
+//				String enString1 = "BOOLEAN isNightSurcharge EQUALS false";
+//		    	String enString2 = "INTEGER distanceInMile LESS-THAN 10";
+//		    	String enString_full = "(BOOLEAN isNightSurcharge EQUALS false AND INTEGER distanceInMile LESS-THAN 10)";
+//		    	
+//		    	String mvelString1 = convertStringToCode(enString1);
+//		    	String mvelString2 = convertStringToCode(enString2);
+//		        String mvelString_full = convertStringToCode(enString_full);
+//		        
+//		        /*
+//		         "{0}"                                           // name
+//    		     when 
+//    		        ruleDataInstance:DroolsRuleData("{1}");      // mvelString
+//    		     then 
+//    		        droolsRuleResult.addResult("{2}", true);     // enString1 (database)
+//    		     end
+//		         */
+//		        String rule1 = RULE_TEMPLATE.replace("{0}", "Rule 1").replace("{1}", mvelString1).replace("{2}", enString1);
+//		        String rule2 = RULE_TEMPLATE.replace("{0}", "Rule 2").replace("{1}", mvelString2).replace("{2}", enString2);
+//		        String rule3 = RULE_TEMPLATE.replace("{0}", "Rule 3").replace("{1}", mvelString_full).replace("{2}", enString_full);
+//		        
+//		        /*
+//		         Rule 1
+//					enString1: BOOLEAN isNightSurcharge EQUALS false
+//					mvelString1:  getBooleanValue("isNightSurcharge") == false
+//					rule1: rule "Rule 1"
+//    				when
+//        				ruleDataInstance:DroolsRuleData( getBooleanValue("isNightSurcharge") == false);
+//    				then
+//        				droolsRuleResult.addResult("BOOLEAN isNightSurcharge EQUALS false", true);
+//					end
+//		         */
+//		        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`");
+//		        System.out.println("Rule 1");
+//		        System.out.println("\tenString1: " + enString1);
+//		        System.out.println("\tmvelString1: " + mvelString1);
+//		        System.out.println("\trule1: " + rule1);
+//		        System.out.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^`");
+//		        
+//		        
+//		        List<String> ruleStrings = new ArrayList<>();
+//		        ruleStrings.add(rule1);
+//		        ruleStrings.add(rule2);
+//		        ruleStrings.add(rule3);
+//		        
+//		        RuleConfiguration ruleConfiguration = new RuleConfiguration(ruleStrings);
+//		        RuleDataCalculationService ruleDataCalculationService = new RuleDataCalculationService(ruleConfiguration);
+//				
+//		        DroolsRuleData ruleData = new DroolsRuleData();
+//		        ruleData.setBooleanValue("isNightSurcharge", false);
+//		        ruleData.setLongValue("distanceInMile", 9L);
+//		        
+//		        DroolsRuleResult ruleResult = new DroolsRuleResult(enString1, enString2, enString_full);
+//		        String retval = ruleDataCalculationService.calculate(ruleData, ruleResult);
+//		        System.out.println();
+//		        System.out.println(retval);
+//				
+//				// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 				
 				String ruleName = rule.getName();
 				TypeCode typeCode = rule.getTypeCode();
@@ -120,16 +154,36 @@ public class RulesProcessingUtil {
 				String pathValueString = JSONPathUtil.getString(document, valuePath);
 				
 				// TODO
-				System.err.println("---------------------------------------------------------------------------------");
-				System.err.println("pathValueString: " + pathValueString);
-				System.err.println("typeCode: " + typeCode);
-				System.err.println("ruleCode: " + ruleCode);
-				System.err.println("goodStatusCode: " + goodStatusCode);
-				System.err.println("badStatusCode: " + badStatusCode);
-				System.err.println("expectedValueString: " + expectedValueString);
-				System.err.println("---------------------------------------------------------------------------------");
+//				System.err.println("---------------------------------------------------------------------------------");
+//				System.err.println("pathValueString: " + pathValueString);
+//				System.err.println("typeCode: " + typeCode);
+//				System.err.println("ruleCode: " + ruleCode);
+//				System.err.println("goodStatusCode: " + goodStatusCode);
+//				System.err.println("badStatusCode: " + badStatusCode);
+//				System.err.println("expectedValueString: " + expectedValueString);
+//				System.err.println("---------------------------------------------------------------------------------");
 				// TODO
 				
+				String currentEnString = typeCode.getName() + " " + pathValueString + " " + ruleCode.getName() + " " + expectedValueString;
+				String currenMvelString = convertStringToCode(currentEnString);
+				String currentrule = RULE_TEMPLATE.replace("{0}", ruleName).replace("{1}", currenMvelString).replace("{2}", currentEnString);
+				
+				enRules.add(currentEnString);
+		        ruleStrings.add(currentrule);
+
+		        RuleConfiguration ruleConfiguration = new RuleConfiguration(ruleStrings);
+		        RuleDataCalculationService ruleDataCalculationService = new RuleDataCalculationService(ruleConfiguration);
+				
+		        DroolsRuleData ruleData = new DroolsRuleData();
+		        
+		        DroolsRuleResult ruleResult = new DroolsRuleResult(enRules.toArray(new String[enRules.size()]));
+		        String retval = ruleDataCalculationService.calculate(ruleData, ruleResult);
+				
+		        System.err.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+		        System.err.println(currentrule);
+		        System.err.println(retval);
+		        System.err.println("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+								
 				int result = 1;
 				
 //				if (INT_TYPE == typeCode.getId()) {
@@ -172,7 +226,7 @@ public class RulesProcessingUtil {
 		}
 		
 		// TODO
-		System.err.println(results);
+		//System.err.println(results);
 		// TODO
 		System.err.println(ruleResults.size());
 		
